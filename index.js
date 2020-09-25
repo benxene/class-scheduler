@@ -95,7 +95,7 @@ var Schedule = (function () {
         else {
             dayNumber = this.getDayNumber(day);
         }
-        if (this.calendar[dayNumber].classes.length <= period || period < 0) {
+        if (!this.calendar[dayNumber] || this.calendar[dayNumber].classes.length <= period || period < 0) {
             return this.NO_SCHEDULE_MSG;
         }
         return this.calendar[dayNumber].classes[period];
@@ -132,7 +132,11 @@ var Schedule = (function () {
         }
         nextClass = this.getClass(this.getPeriodNumber() + 1);
         for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
-            nextClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+            var newDay = this.getDayNumber() + nextDayCounter;
+            if (newDay > 6) {
+                nextDayCounter = -6;
+            }
+            nextClass = this.getClass(0, newDay);
         }
         return nextClass;
     };
@@ -152,12 +156,20 @@ var Schedule = (function () {
         var nextClass = this.getNextClass({ allowNextDay: false });
         if (nextClass === this.NO_SCHEDULE_MSG) {
             for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
-                laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
+                var newDay = this.getDayNumber() + nextDayCounter;
+                if (newDay > 6) {
+                    nextDayCounter = -6;
+                }
+                laterClass = this.getClass(1, newDay);
             }
         }
         else {
             for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
-                laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+                var newDay = this.getDayNumber() + nextDayCounter;
+                if (newDay > 6) {
+                    nextDayCounter = -6;
+                }
+                laterClass = this.getClass(0, newDay);
             }
         }
         return laterClass;
