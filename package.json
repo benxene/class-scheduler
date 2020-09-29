@@ -1,8 +1,9 @@
 {
   "name": "scheduler",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
+  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "scripts": {
     "run": "ts-node index",
     "test-js": "node test.js",
@@ -28,8 +29,5 @@
     "prettier": "^2.1.2",
     "tsc": "^1.20150623.0",
     "typescript": "^4.0.3"
-  },
-  "dependencies": {
-    "@types/node": "^14.11.2"
   }
 }
