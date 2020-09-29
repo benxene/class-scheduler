@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
     "noImplicitAny": true,
-    "removeComments": false,
-    "preserveConstEnums": true
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "module": "commonjs"
   },
-  "files": [
-    "index.ts",
-    "types.ts"
-  ]
+  "files": ["index.ts", "types.ts"]
 }

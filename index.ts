@@ -1,6 +1,6 @@
-import { Time, TimeRange, Day, Calendar } from './types';
+import { TimeRange, Calendar } from './types';
 
-class Schedule {
+export default class Schedule {
   private calendar: Calendar;
   private NO_SCHEDULE: string;
 
@@ -114,72 +114,6 @@ class Schedule {
     return this.getClass(this.getPeriodNumber() + 2);
   }
 }
-
-const calendar: Calendar = [
-  { day: Day.Sunday, timeRange: [], classes: [] },
-  {
-    day: Day.Monday,
-    timeRange: [
-      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-    ],
-    classes: ['A', 'B', 'C', 'D', 'E']
-  },
-  {
-    day: Day.Tuesday,
-    timeRange: [
-      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-    ],
-    classes: ['A', 'B', 'C', 'D', 'E']
-  },
-  {
-    day: Day.Wednesday,
-    timeRange: [
-      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-    ],
-    classes: ['A', 'B', 'C', 'D', 'E']
-  },
-  {
-    day: Day.Thursday,
-    timeRange: [
-      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-    ],
-    classes: ['A', 'B', 'C', 'D', 'E']
-  },
-  {
-    day: Day.Friday,
-    timeRange: [
-      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-    ],
-    classes: ['A', 'B', 'C', 'D', 'E']
-  },
-  {
-    day: Day.Saturday,
-    timeRange: [],
-    classes: []
-  }
-];
-
-export default Schedule;
 
 /*
 getDayNumber()

@@ -1,4 +1,4 @@
-const { default: Schedule } = require('./index');
+import Schedule from './index';
 
 const calendar = [
   { day: 0, timeRange: [], classes: [] },
