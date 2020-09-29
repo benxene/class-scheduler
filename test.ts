@@ -66,9 +66,11 @@ const calendar = [
 
 const sch = new Schedule(calendar);
 
-const testingDate = new Date();
-testingDate.setHours(19, 45);
-
-const currentP = sch.getPeriodNumber(testingDate);
-console.log(sch.getClass(currentP));
-console.log(sch.getClassTable());
+console.table({
+  'Current period no.': sch.getPeriodNumber(),
+  'Current period': sch.getCurrentClass(),
+  'Next w/o next day': sch.getNextClass(false),
+  'Later w/o next day': sch.getLaterClass(false),
+  'Next w/ next day': sch.getNextClass(true),
+  'Later w/ next day': sch.getLaterClass(true)
+});

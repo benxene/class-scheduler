@@ -69,7 +69,7 @@ var Schedule = (function () {
         else {
             dayNumber = this.getDayNumber(day);
         }
-        if (this.calendar[dayNumber].classes.length < period || period < 0) {
+        if (this.calendar[dayNumber].classes.length <= period || period < 0) {
             return this.NO_SCHEDULE;
         }
         return this.calendar[dayNumber].classes[period];
@@ -77,11 +77,36 @@ var Schedule = (function () {
     Schedule.prototype.getCurrentClass = function () {
         return this.getClass();
     };
-    Schedule.prototype.getNextClass = function () {
-        return this.getClass(this.getPeriodNumber() + 1);
+    Schedule.prototype.getNextClass = function (fetchFromNextDay) {
+        if (fetchFromNextDay === void 0) { fetchFromNextDay = false; }
+        var nextClass = this.getClass(this.getPeriodNumber() + 1);
+        if (!fetchFromNextDay) {
+            return nextClass;
+        }
+        for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE; nextDayCounter++) {
+            nextClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+        }
+        return nextClass;
     };
-    Schedule.prototype.getLaterClass = function () {
-        return this.getClass(this.getPeriodNumber() + 2);
+    Schedule.prototype.getLaterClass = function (fetchFromNextDay) {
+        if (fetchFromNextDay === void 0) { fetchFromNextDay = false; }
+        var laterClass = this.getClass(this.getPeriodNumber() + 2);
+        if (!fetchFromNextDay) {
+            return laterClass;
+        }
+        var nextClass = this.getNextClass(true);
+        if (nextClass === this.NO_SCHEDULE) {
+            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+                console.log({ prevClass: nextClass, nextDayCounter: nextDayCounter });
+                laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+            }
+        }
+        else {
+            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+                laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
+            }
+        }
+        return laterClass;
     };
     return Schedule;
 })();

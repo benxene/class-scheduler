@@ -95,7 +95,7 @@ export default class Schedule {
       dayNumber = this.getDayNumber(day);
     }
 
-    if (this.calendar[dayNumber].classes.length < period || period < 0) {
+    if (this.calendar[dayNumber].classes.length <= period || period < 0) {
       return this.NO_SCHEDULE;
     }
 
@@ -106,12 +106,39 @@ export default class Schedule {
     return this.getClass();
   }
 
-  public getNextClass(): string {
-    return this.getClass(this.getPeriodNumber() + 1);
+  public getNextClass(fetchFromNextDay: boolean = false): string {
+    let nextClass = this.getClass(this.getPeriodNumber() + 1);
+    if (!fetchFromNextDay) {
+      return nextClass;
+    }
+
+    // if fetch from next day is allowed
+    for (let nextDayCounter = 1; nextClass === this.NO_SCHEDULE; nextDayCounter++) {
+      nextClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+    }
+    return nextClass;
   }
 
-  public getLaterClass(): string {
-    return this.getClass(this.getPeriodNumber() + 2);
+  public getLaterClass(fetchFromNextDay: boolean = false): string {
+    let laterClass = this.getClass(this.getPeriodNumber() + 2);
+    if (!fetchFromNextDay) {
+      return laterClass;
+    }
+
+    // if fetch from next day is allowed
+    let nextClass = this.getNextClass(true);
+    if (nextClass === this.NO_SCHEDULE) {
+      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+        console.log({ prevClass: nextClass, nextDayCounter });
+        laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+      }
+    } else {
+      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+        laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
+      }
+    }
+
+    return laterClass;
   }
 }
 
