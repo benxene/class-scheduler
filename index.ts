@@ -178,6 +178,8 @@ testingDate.setMinutes(45);
 const currentP = sch.getPeriodNumber(testingDate);
 console.log(sch.getClass(currentP));
 
+export default Schedule;
+
 /*
 getDayNumber()
 getClasses()
