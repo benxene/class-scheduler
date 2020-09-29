@@ -1,3 +1,5 @@
+import { Time, TimeRange, Day, Calendar } from './types';
+
 class Schedule {
   private calendar: Calendar;
   private NO_SCHEDULE: string;
@@ -16,6 +18,10 @@ class Schedule {
     this.NO_SCHEDULE = message;
   }
 
+  public getClassTable() {
+    this.calendar.map(value => value.classes);
+  }
+
   public getPeriodNumber(time: Date = new Date()): number {
     /*
      * -3 : no classes today,
@@ -25,14 +31,14 @@ class Schedule {
 
     const dayNumber = this.getDayNumber(time);
     let result = -3;
-    const currentTime = new Date(time);
+    const currentTime = new Date(time.valueOf());
 
     // check if the day has no classes
     if (this.calendar[dayNumber].classes.length === 0) {
       return -3;
     }
 
-    const testTime = new Date(time);
+    const testTime = new Date(time.valueOf());
     const start = this.calendar[dayNumber].timeRange[0].start;
     const end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
 
@@ -51,10 +57,10 @@ class Schedule {
 
     // Check with current time
     this.calendar[dayNumber].timeRange.forEach(({ start, end }: TimeRange, index: number) => {
-      const startTime = new Date(time);
+      const startTime = new Date(time.valueOf());
       startTime.setHours(start.hour, start.minute);
 
-      const endTime = new Date(time);
+      const endTime = new Date(time.valueOf());
       endTime.setHours(end.hour, end.minute);
 
       if (startTime.getTime() <= currentTime.getTime() && currentTime.getTime() <= endTime.getTime()) {
@@ -178,6 +184,7 @@ const testingDate = new Date();
 testingDate.setHours(19, 45);
 const currentP = sch.getPeriodNumber(testingDate);
 console.log(sch.getClass(currentP));
+console.log(sch.getClassTable());
 
 export default Schedule;
 
