@@ -10,16 +10,6 @@ class Schedule {
     return date.getDay();
   }
 
-  public getClasses(date?: Date | number): Array<string> {
-    let dayNumber: number;
-    if (typeof date === 'number') {
-      dayNumber = date;
-    } else {
-      dayNumber = this.getDayNumber(date);
-    }
-    return this.calendar[dayNumber].classes;
-  }
-
   public getPeriodNumber(time: Date = new Date()): number {
     /*
      * -3 : no classes today,
@@ -41,29 +31,25 @@ class Schedule {
     const end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
 
     // check if the classes are yet to start
-    testTime.setHours(start.hour);
-    testTime.setMinutes(start.minute);
+    testTime.setHours(start.hour, start.minute);
 
     if (currentTime.getTime() < testTime.getTime()) {
       return -1;
     }
 
     // check if the classes have ended
-    testTime.setHours(end.hour);
-    testTime.setMinutes(end.minute);
+    testTime.setHours(end.hour, end.minute);
     if (currentTime.getTime() > testTime.getTime()) {
       return -2;
     }
 
     // Check with current time
-    this.calendar[dayNumber].timeRange.forEach(({ start, end }: any, index: number) => {
+    this.calendar[dayNumber].timeRange.forEach(({start, end}: TimeRange, index: number) => {
       const startTime = new Date(time);
-      startTime.setHours(start.hour);
-      startTime.setMinutes(start.minute);
+      startTime.setHours(start.hour, start.minute);
 
       const endTime = new Date(time);
-      endTime.setHours(end.hour);
-      endTime.setMinutes(end.minute);
+      endTime.setHours(end.hour, end.minute);
 
       if (startTime.getTime() <= currentTime.getTime() && endTime.getTime() >= currentTime.getTime()) {
         result = index;
@@ -73,7 +59,17 @@ class Schedule {
     return result;
   }
 
-  public getClass(period: number = this.getPeriodNumber(), date?: Date | number): string {
+  public getClasses(date?: Date | number): Array<string> {
+    let dayNumber: number;
+    if (typeof date === 'number') {
+      dayNumber = date;
+    } else {
+      dayNumber = this.getDayNumber(date);
+    }
+    return this.calendar[dayNumber].classes;
+  }
+
+  public getClass(period: number = this.getPeriodNumber(), day?: Date | number): string {
     /*
      * () -> currentPeriod
      * (n) -> today's nth period
@@ -81,10 +77,10 @@ class Schedule {
      */
     let dayNumber: number;
 
-    if (typeof date === 'number') {
-      dayNumber = date;
+    if (typeof day === 'number') {
+      dayNumber = day;
     } else {
-      dayNumber = this.getDayNumber(date);
+      dayNumber = this.getDayNumber(day);
     }
 
     if (this.calendar[dayNumber].classes.length < period || period < 0) {
@@ -173,8 +169,7 @@ const calendar = [
 
 const sch = new Schedule(calendar);
 const testingDate = new Date();
-testingDate.setHours(19);
-testingDate.setMinutes(45);
+testingDate.setHours(19, 45);
 const currentP = sch.getPeriodNumber(testingDate);
 console.log(sch.getClass(currentP));
 

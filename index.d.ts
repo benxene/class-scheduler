@@ -1,14 +1,14 @@
 type Time = { hour: number, minute: number };
 
-type TimeRange = Array<{
+type TimeRange = {
   start: Time,
   end: Time
-}>;
+};
 
 type Calendar = Array<
   {
     day: string,
-    timeRange: TimeRange,
+    timeRange: Array<TimeRange>,
     classes: Array<string>
  }
 >
