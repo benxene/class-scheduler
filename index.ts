@@ -1,67 +1,9 @@
 class Schedule {
-  private schedule = [
-    { day: "Sunday", timeRange: [], classes: [] },
-    {
-      day: "Monday",
-      timeRange: [
-        { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-        { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-        { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-        { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-        { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-      ],
-      classes: ["A", "B", "C", "D", "E"]
-    },
-    {
-      day: "Tuesday",
-      timeRange: [
-        { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-        { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-        { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-        { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-        { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-      ],
-      classes: ["A", "B", "C", "D", "E"]
-    },
-    {
-      day: "Wednesday",
-      timeRange: [
-        { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-        { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-        { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-        { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-        { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-      ],
-      classes: ["A", "B", "C", "D", "E"]
-    },
-    {
-      day: "Thursday",
-      timeRange: [
-        { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-        { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-        { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-        { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-        { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-      ],
-      classes: ["A", "B", "C", "D", "E"]
-    },
-    {
-      day: "Friday",
-      timeRange: [
-        { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
-        { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
-        { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
-        { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
-        { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
-      ],
-      classes: ["A", "B", "C", "D", "E"]
-    },
-    {
-      day: "Saturday",
-      timeRange: [],
-      classes: []
-    }
-  ];
+  private calendar: Calendar;
+
+  constructor(calendar: Calendar) {
+    this.calendar = calendar;
+  }
 
   private getDayNumber(date: Date = new Date()): number {
     // @returns 0 -> Sunday, 1-> Monday, ..., 6-> Saturday
@@ -69,13 +11,13 @@ class Schedule {
   }
 
   public getClasses(date?: Date | number): Array<string> {
-    let dayNumber;
-    if (typeof date === "number") {
+    let dayNumber: number;
+    if (typeof date === 'number') {
       dayNumber = date;
     } else {
       dayNumber = this.getDayNumber(date);
     }
-    return this.schedule[dayNumber].classes;
+    return this.calendar[dayNumber].classes;
   }
 
   public getPeriodNumber(time: Date = new Date()): number {
@@ -90,16 +32,13 @@ class Schedule {
     const currentTime = new Date(time);
 
     // check if the day has no classes
-    if (this.schedule[dayNumber].classes.length === 0) {
+    if (this.calendar[dayNumber].classes.length === 0) {
       return -3;
     }
 
     const testTime = new Date(time);
-    const start = this.schedule[dayNumber].timeRange[0].start;
-
-    const end = this.schedule[dayNumber].timeRange[
-      this.schedule[dayNumber].timeRange.length - 1
-    ].end;
+    const start = this.calendar[dayNumber].timeRange[0].start;
+    const end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
 
     // check if the classes are yet to start
     testTime.setHours(start.hour);
@@ -117,32 +56,24 @@ class Schedule {
     }
 
     // Check with current time
-    this.schedule[dayNumber].timeRange.forEach(
-      ({ start, end }: any, index: number) => {
-        const startTime = new Date(time);
-        startTime.setHours(start.hour);
-        startTime.setMinutes(start.minute);
+    this.calendar[dayNumber].timeRange.forEach(({ start, end }: any, index: number) => {
+      const startTime = new Date(time);
+      startTime.setHours(start.hour);
+      startTime.setMinutes(start.minute);
 
-        const endTime = new Date(time);
-        endTime.setHours(end.hour);
-        endTime.setMinutes(end.minute);
+      const endTime = new Date(time);
+      endTime.setHours(end.hour);
+      endTime.setMinutes(end.minute);
 
-        if (
-          startTime.getTime() <= currentTime.getTime() &&
-          endTime.getTime() >= currentTime.getTime()
-        ) {
-          result = index;
-        }
+      if (startTime.getTime() <= currentTime.getTime() && endTime.getTime() >= currentTime.getTime()) {
+        result = index;
       }
-    );
+    });
 
     return result;
   }
 
-  public getClass(
-    period: number = this.getPeriodNumber(),
-    date?: Date | number
-  ): string {
+  public getClass(period: number = this.getPeriodNumber(), date?: Date | number): string {
     /*
      * () -> currentPeriod
      * (n) -> today's nth period
@@ -150,17 +81,17 @@ class Schedule {
      */
     let dayNumber: number;
 
-    if (typeof date === "number") {
+    if (typeof date === 'number') {
       dayNumber = date;
     } else {
       dayNumber = this.getDayNumber(date);
     }
 
-    if (this.schedule[dayNumber].classes.length < period || period < 0) {
-      return "No Schedule";
+    if (this.calendar[dayNumber].classes.length < period || period < 0) {
+      return 'No Schedule';
     }
 
-    return this.schedule[dayNumber].classes[period];
+    return this.calendar[dayNumber].classes[period];
   }
 
   public getCurrentClass(): string {
@@ -176,7 +107,71 @@ class Schedule {
   }
 }
 
-const sch = new Schedule();
+const calendar = [
+  { day: 'Sunday', timeRange: [], classes: [] },
+  {
+    day: 'Monday',
+    timeRange: [
+      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
+      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
+      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
+      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
+      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
+    ],
+    classes: ['A', 'B', 'C', 'D', 'E']
+  },
+  {
+    day: 'Tuesday',
+    timeRange: [
+      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
+      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
+      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
+      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
+      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
+    ],
+    classes: ['A', 'B', 'C', 'D', 'E']
+  },
+  {
+    day: 'Wednesday',
+    timeRange: [
+      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
+      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
+      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
+      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
+      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
+    ],
+    classes: ['A', 'B', 'C', 'D', 'E']
+  },
+  {
+    day: 'Thursday',
+    timeRange: [
+      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
+      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
+      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
+      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
+      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
+    ],
+    classes: ['A', 'B', 'C', 'D', 'E']
+  },
+  {
+    day: 'Friday',
+    timeRange: [
+      { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
+      { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
+      { start: { hour: 12, minute: 0 }, end: { hour: 13, minute: 0 } },
+      { start: { hour: 14, minute: 15 }, end: { hour: 15, minute: 50 } },
+      { start: { hour: 15, minute: 30 }, end: { hour: 16, minute: 30 } }
+    ],
+    classes: ['A', 'B', 'C', 'D', 'E']
+  },
+  {
+    day: 'Saturday',
+    timeRange: [],
+    classes: []
+  }
+];
+
+const sch = new Schedule(calendar);
 const testingDate = new Date();
 testingDate.setHours(19);
 testingDate.setMinutes(45);
