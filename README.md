@@ -2,14 +2,14 @@
 This must be having as a docs pa!
 >getDayNumber()
 <br />
->getClasses()
+> getClasses()
 <br />
->getPeriodNumber()
+> getPeriodNumber()
 <br />
->getClass()
+> getClass()
 <br />
->getCurrentClass()
+> getCurrentClass()
 <br />
->getNextClass()
+> getNextClass()
 <br />
->getLaterClass()
+> getLaterClass()
