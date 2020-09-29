@@ -1,13 +1,15 @@
-type Time = { hour: number, minute: number };
+declare type Time = { hour: number, minute: number };
 
-type TimeRange = {
+declare enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
+
+declare type TimeRange = {
   start: Time,
   end: Time
 };
 
-type Calendar = Array<
+declare type Calendar = Array<
   {
-    day: string,
+    day: Day,
     timeRange: Array<TimeRange>,
     classes: Array<string>
  }

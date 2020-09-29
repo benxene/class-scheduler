@@ -1,8 +1,10 @@
 class Schedule {
   private calendar: Calendar;
+  private NO_SCHEDULE: string;
 
-  constructor(calendar: Calendar) {
+  constructor(calendar: Calendar, noScheduleMessage: string = 'No Schedule') {
     this.calendar = calendar;
+    this.NO_SCHEDULE = noScheduleMessage;
   }
 
   private getDayNumber(date: Date = new Date()): number {
@@ -84,7 +86,7 @@ class Schedule {
     }
 
     if (this.calendar[dayNumber].classes.length < period || period < 0) {
-      return 'No Schedule';
+      return this.NO_SCHEDULE;
     }
 
     return this.calendar[dayNumber].classes[period];
@@ -104,9 +106,9 @@ class Schedule {
 }
 
 const calendar = [
-  { day: 'Sunday', timeRange: [], classes: [] },
+  { day: Day.Sunday, timeRange: [], classes: [] },
   {
-    day: 'Monday',
+    day: Day.Monday,
     timeRange: [
       { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
       { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
@@ -117,7 +119,7 @@ const calendar = [
     classes: ['A', 'B', 'C', 'D', 'E']
   },
   {
-    day: 'Tuesday',
+    day: Day.Tuesday,
     timeRange: [
       { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
       { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
@@ -128,7 +130,7 @@ const calendar = [
     classes: ['A', 'B', 'C', 'D', 'E']
   },
   {
-    day: 'Wednesday',
+    day: Day.Wednesday,
     timeRange: [
       { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
       { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
@@ -139,7 +141,7 @@ const calendar = [
     classes: ['A', 'B', 'C', 'D', 'E']
   },
   {
-    day: 'Thursday',
+    day: Day.Thursday,
     timeRange: [
       { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
       { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
@@ -150,7 +152,7 @@ const calendar = [
     classes: ['A', 'B', 'C', 'D', 'E']
   },
   {
-    day: 'Friday',
+    day: Day.Friday,
     timeRange: [
       { start: { hour: 9, minute: 30 }, end: { hour: 10, minute: 30 } },
       { start: { hour: 10, minute: 45 }, end: { hour: 11, minute: 45 } },
@@ -161,7 +163,7 @@ const calendar = [
     classes: ['A', 'B', 'C', 'D', 'E']
   },
   {
-    day: 'Saturday',
+    day: Day.Saturday,
     timeRange: [],
     classes: []
   }
