@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "run": "ts-node index",
+    "test-js": "node test.js",
     "compile": "tsc",
     "develop:compile": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
