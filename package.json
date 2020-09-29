@@ -4,6 +4,9 @@
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
   "scripts": {
+    "run": "ts-node index",
+    "compile": "tsc",
+    "develop:compile": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
