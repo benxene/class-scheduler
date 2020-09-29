@@ -19,7 +19,7 @@ class Schedule {
   }
 
   public getClassTable() {
-    this.calendar.map(value => value.classes);
+    return this.calendar.map(value => value.classes);
   }
 
   public getPeriodNumber(time: Date = new Date()): number {
