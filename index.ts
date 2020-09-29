@@ -12,6 +12,10 @@ class Schedule {
     return date.getDay();
   }
 
+  public setNoScheduleMessage(message: string) {
+    this.NO_SCHEDULE = message;
+  }
+
   public getPeriodNumber(time: Date = new Date()): number {
     /*
      * -3 : no classes today,
@@ -46,14 +50,14 @@ class Schedule {
     }
 
     // Check with current time
-    this.calendar[dayNumber].timeRange.forEach(({start, end}: TimeRange, index: number) => {
+    this.calendar[dayNumber].timeRange.forEach(({ start, end }: TimeRange, index: number) => {
       const startTime = new Date(time);
       startTime.setHours(start.hour, start.minute);
 
       const endTime = new Date(time);
       endTime.setHours(end.hour, end.minute);
 
-      if (startTime.getTime() <= currentTime.getTime() && endTime.getTime() >= currentTime.getTime()) {
+      if (startTime.getTime() <= currentTime.getTime() && currentTime.getTime() <= endTime.getTime()) {
         result = index;
       }
     });
@@ -105,7 +109,7 @@ class Schedule {
   }
 }
 
-const calendar = [
+const calendar: Calendar = [
   { day: Day.Sunday, timeRange: [], classes: [] },
   {
     day: Day.Monday,
