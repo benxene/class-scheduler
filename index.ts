@@ -31,18 +31,28 @@ export default class Schedule {
 
   public getPeriodNumber(time: Date = new Date()): number {
     /*
+     * -4 : break
      * -3 : no classes today,
      * -2 : classes have ended,
      * -1 : classes are yet to start
      */
 
     const dayNumber = this.getDayNumber(time);
-    let result = -3;
+    let result = this.NO_CLASSES;
     const currentTime = new Date(time.valueOf());
 
     // check if the day has no classes
     if (this.calendar[dayNumber].classes.length === 0) {
-      return -3;
+      return result;
+    }
+
+    // check if its a break
+    if (
+      this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
+      currentTime.getHours() <
+        this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour
+    ) {
+      return this.BREAK;
     }
 
     const testTime = new Date(time.valueOf());
@@ -53,13 +63,13 @@ export default class Schedule {
     testTime.setHours(start.hour, start.minute);
 
     if (currentTime.getTime() < testTime.getTime()) {
-      return -1;
+      return this.YET_TO_START;
     }
 
     // check if the classes have ended
     testTime.setHours(end.hour, end.minute);
     if (currentTime.getTime() > testTime.getTime()) {
-      return -2;
+      return this.ENDED;
     }
 
     // Check with current time

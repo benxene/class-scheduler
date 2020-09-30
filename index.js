@@ -24,21 +24,26 @@ var Schedule = (function () {
     Schedule.prototype.getPeriodNumber = function (time) {
         if (time === void 0) { time = new Date(); }
         var dayNumber = this.getDayNumber(time);
-        var result = -3;
+        var result = this.NO_CLASSES;
         var currentTime = new Date(time.valueOf());
         if (this.calendar[dayNumber].classes.length === 0) {
-            return -3;
+            return result;
+        }
+        if (this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
+            currentTime.getHours() <
+                this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour) {
+            return this.BREAK;
         }
         var testTime = new Date(time.valueOf());
         var start = this.calendar[dayNumber].timeRange[0].start;
         var end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
         testTime.setHours(start.hour, start.minute);
         if (currentTime.getTime() < testTime.getTime()) {
-            return -1;
+            return this.YET_TO_START;
         }
         testTime.setHours(end.hour, end.minute);
         if (currentTime.getTime() > testTime.getTime()) {
-            return -2;
+            return this.ENDED;
         }
         this.calendar[dayNumber].timeRange.forEach(function (_a, index) {
             var start = _a.start, end = _a.end;
