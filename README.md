@@ -47,7 +47,7 @@ const calendar: Calendar = [
   }
 ];
 ```
-
+# Functions
 
 <!-- > getDayNumber()<br /><br />
 > getClasses()<br/><br />
