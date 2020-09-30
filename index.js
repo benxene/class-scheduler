@@ -1,8 +1,13 @@
 "use strict";
 exports.__esModule = true;
 var Schedule = (function () {
-    function Schedule(calendar, noScheduleMessage) {
-        if (noScheduleMessage === void 0) { noScheduleMessage = 'No Schedule'; }
+    function Schedule(calendar, _a) {
+        var _b = _a === void 0 ? {
+            noScheduleMessage: 'No Schedule',
+            breakMessage: 'Break',
+            classesOverMessage: 'Classes are over',
+            yetToBeginMessage: 'Yet to begin'
+        } : _a, noScheduleMessage = _b.noScheduleMessage, breakMessage = _b.breakMessage, classesOverMessage = _b.classesOverMessage, yetToBeginMessage = _b.yetToBeginMessage;
         this.BREAK = -4;
         this.NO_CLASSES = -3;
         this.ENDED = -2;
@@ -10,6 +15,9 @@ var Schedule = (function () {
         this.FREE_BIRD = [this.NO_CLASSES, this.ENDED];
         this.calendar = calendar;
         this.NO_SCHEDULE_MSG = noScheduleMessage;
+        this.BREAK_MSG = breakMessage;
+        this.CLASSES_OVER_MSG = classesOverMessage;
+        this.YET_TO_MSG = yetToBeginMessage;
     }
     Schedule.prototype.getDayNumber = function (date) {
         if (date === void 0) { date = new Date(); }
@@ -17,6 +25,15 @@ var Schedule = (function () {
     };
     Schedule.prototype.setNoScheduleMessage = function (message) {
         this.NO_SCHEDULE_MSG = message;
+    };
+    Schedule.prototype.setBreakMessage = function (message) {
+        this.BREAK_MSG = message;
+    };
+    Schedule.prototype.setClassesOverMessage = function (message) {
+        this.CLASSES_OVER_MSG = message;
+    };
+    Schedule.prototype.setYetToStartMessage = function (message) {
+        this.YET_TO_MSG = message;
     };
     Schedule.prototype.getClassTable = function () {
         return this.calendar.map(function (value) { return value.classes; });
@@ -81,8 +98,22 @@ var Schedule = (function () {
         }
         return this.calendar[dayNumber].classes[period];
     };
-    Schedule.prototype.getCurrentClass = function () {
-        return this.getClass();
+    Schedule.prototype.getCurrentClass = function (_a) {
+        var useMeaningfulMessage = (_a === void 0 ? { useMeaningfulMessage: false } : _a).useMeaningfulMessage;
+        var currentClass = this.getClass();
+        if (useMeaningfulMessage) {
+            switch (this.getPeriodNumber()) {
+                case this.BREAK:
+                    currentClass = this.BREAK_MSG;
+                    break;
+                case this.ENDED:
+                    currentClass = this.CLASSES_OVER_MSG;
+                    break;
+                case this.YET_TO_START:
+                    currentClass = this.YET_TO_MSG;
+            }
+        }
+        return currentClass;
     };
     Schedule.prototype.getNextClass = function (_a) {
         var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;

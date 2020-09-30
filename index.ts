@@ -10,10 +10,24 @@ export default class Schedule {
   private FREE_BIRD = [this.NO_CLASSES, this.ENDED];
 
   private NO_SCHEDULE_MSG: string;
+  private BREAK_MSG: string;
+  private CLASSES_OVER_MSG: string;
+  private YET_TO_MSG: string;
 
-  constructor(calendar: Calendar, noScheduleMessage: string = 'No Schedule') {
+  constructor(
+    calendar: Calendar,
+    { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage } = {
+      noScheduleMessage: 'No Schedule',
+      breakMessage: 'Break',
+      classesOverMessage: 'Classes are over',
+      yetToBeginMessage: 'Yet to begin'
+    }
+  ) {
     this.calendar = calendar;
     this.NO_SCHEDULE_MSG = noScheduleMessage;
+    this.BREAK_MSG = breakMessage;
+    this.CLASSES_OVER_MSG = classesOverMessage;
+    this.YET_TO_MSG = yetToBeginMessage;
   }
 
   private getDayNumber(date: Date = new Date()): number {
@@ -23,6 +37,15 @@ export default class Schedule {
 
   public setNoScheduleMessage(message: string) {
     this.NO_SCHEDULE_MSG = message;
+  }
+  public setBreakMessage(message: string) {
+    this.BREAK_MSG = message;
+  }
+  public setClassesOverMessage(message: string) {
+    this.CLASSES_OVER_MSG = message;
+  }
+  public setYetToStartMessage(message: string) {
+    this.YET_TO_MSG = message;
   }
 
   public getClassTable() {
@@ -98,7 +121,7 @@ export default class Schedule {
     return this.calendar[dayNumber].classes;
   }
 
-  public getClass(period: number = this.getPeriodNumber(), day?: Date | number): string {
+  public getClass(period = this.getPeriodNumber(), day?: Date | number): string {
     /*
      * () -> currentPeriod
      * (n) -> today's nth period
@@ -119,11 +142,26 @@ export default class Schedule {
     return this.calendar[dayNumber].classes[period];
   }
 
-  public getCurrentClass(): string {
-    return this.getClass();
+  public getCurrentClass({ useMeaningfulMessage } = { useMeaningfulMessage: false }): string {
+    let currentClass = this.getClass();
+
+    if (useMeaningfulMessage) {
+      switch (this.getPeriodNumber()) {
+        case this.BREAK:
+          currentClass = this.BREAK_MSG;
+          break;
+        case this.ENDED:
+          currentClass = this.CLASSES_OVER_MSG;
+          break;
+        case this.YET_TO_START:
+          currentClass = this.YET_TO_MSG;
+      }
+    }
+
+    return currentClass;
   }
 
-  public getNextClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
+  public getNextClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
 
     let nextClass;
@@ -144,7 +182,7 @@ export default class Schedule {
     return nextClass;
   }
 
-  public getLaterClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
+  public getLaterClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
 
     let laterClass;
