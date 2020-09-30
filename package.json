@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
-  "publishConfig": { "registry": "https://npm.pkg.github.com/" },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "run": "ts-node index",
     "test-js": "node test.js",
