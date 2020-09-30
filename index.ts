@@ -141,13 +141,3 @@ export default class Schedule {
     return laterClass;
   }
 }
-
-/*
-getDayNumber()
-getClasses()
-getPeriodNumber()
-getClass()
-getCurrentClass()
-getNextClass()
-getLaterClass()
-*/
