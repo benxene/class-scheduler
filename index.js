@@ -77,10 +77,10 @@ var Schedule = (function () {
     Schedule.prototype.getCurrentClass = function () {
         return this.getClass();
     };
-    Schedule.prototype.getNextClass = function (fetchFromNextDay) {
-        if (fetchFromNextDay === void 0) { fetchFromNextDay = false; }
+    Schedule.prototype.getNextClass = function (_a) {
+        var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
         var nextClass = this.getClass(this.getPeriodNumber() + 1);
-        if (!fetchFromNextDay) {
+        if (!allowNextDay) {
             return nextClass;
         }
         for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE; nextDayCounter++) {
@@ -88,13 +88,13 @@ var Schedule = (function () {
         }
         return nextClass;
     };
-    Schedule.prototype.getLaterClass = function (fetchFromNextDay) {
-        if (fetchFromNextDay === void 0) { fetchFromNextDay = false; }
+    Schedule.prototype.getLaterClass = function (_a) {
+        var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
         var laterClass = this.getClass(this.getPeriodNumber() + 2);
-        if (!fetchFromNextDay) {
+        if (!allowNextDay) {
             return laterClass;
         }
-        var nextClass = this.getNextClass(true);
+        var nextClass = this.getNextClass({ allowNextDay: true });
         if (nextClass === this.NO_SCHEDULE) {
             for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
                 console.log({ prevClass: nextClass, nextDayCounter: nextDayCounter });

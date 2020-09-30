@@ -106,9 +106,9 @@ export default class Schedule {
     return this.getClass();
   }
 
-  public getNextClass(fetchFromNextDay: boolean = false): string {
+  public getNextClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
     let nextClass = this.getClass(this.getPeriodNumber() + 1);
-    if (!fetchFromNextDay) {
+    if (!allowNextDay) {
       return nextClass;
     }
 
@@ -119,14 +119,14 @@ export default class Schedule {
     return nextClass;
   }
 
-  public getLaterClass(fetchFromNextDay: boolean = false): string {
+  public getLaterClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
     let laterClass = this.getClass(this.getPeriodNumber() + 2);
-    if (!fetchFromNextDay) {
+    if (!allowNextDay) {
       return laterClass;
     }
 
     // if fetch from next day is allowed
-    let nextClass = this.getNextClass(true);
+    let nextClass = this.getNextClass({ allowNextDay: true });
     if (nextClass === this.NO_SCHEDULE) {
       for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
         console.log({ prevClass: nextClass, nextDayCounter });
@@ -141,13 +141,3 @@ export default class Schedule {
     return laterClass;
   }
 }
-
-/*
-getDayNumber()
-getClasses()
-getPeriodNumber()
-getClass()
-getCurrentClass()
-getNextClass()
-getLaterClass()
-*/
