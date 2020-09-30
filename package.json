@@ -9,6 +9,7 @@
   "scripts": {
     "run": "ts-node index",
     "test-js": "node test.js",
+    "test-ts": "ts-node test.ts",
     "compile": "tsc",
     "develop:compile": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
