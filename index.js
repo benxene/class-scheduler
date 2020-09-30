@@ -1,25 +1,27 @@
+"use strict";
+exports.__esModule = true;
 var Schedule = (function () {
     function Schedule(calendar, noScheduleMessage) {
         if (noScheduleMessage === void 0) { noScheduleMessage = 'No Schedule'; }
+        this.BREAK = -4;
+        this.NO_CLASSES = -3;
+        this.ENDED = -2;
+        this.YET_TO_START = -1;
+        this.FREE_BIRD = [this.NO_CLASSES, this.ENDED];
         this.calendar = calendar;
-        this.NO_SCHEDULE = noScheduleMessage;
+        this.NO_SCHEDULE_MSG = noScheduleMessage;
     }
     Schedule.prototype.getDayNumber = function (date) {
         if (date === void 0) { date = new Date(); }
         return date.getDay();
     };
     Schedule.prototype.setNoScheduleMessage = function (message) {
-        this.NO_SCHEDULE = message;
+        this.NO_SCHEDULE_MSG = message;
     };
     Schedule.prototype.getClassTable = function () {
         return this.calendar.map(function (value) { return value.classes; });
     };
     Schedule.prototype.getPeriodNumber = function (time) {
-        /*
-         * -3 : no classes today,
-         * -2 : classes have ended,
-         * -1 : classes are yet to start
-         */
         if (time === void 0) { time = new Date(); }
         var dayNumber = this.getDayNumber(time);
         var result = -3;
@@ -70,7 +72,7 @@ var Schedule = (function () {
             dayNumber = this.getDayNumber(day);
         }
         if (this.calendar[dayNumber].classes.length <= period || period < 0) {
-            return this.NO_SCHEDULE;
+            return this.NO_SCHEDULE_MSG;
         }
         return this.calendar[dayNumber].classes[period];
     };
@@ -79,35 +81,53 @@ var Schedule = (function () {
     };
     Schedule.prototype.getNextClass = function (_a) {
         var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
-        var nextClass = this.getClass(this.getPeriodNumber() + 1);
+        var currentPeriodNumber = this.getPeriodNumber();
+        var nextClass;
+        if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
+            nextClass = this.NO_SCHEDULE_MSG;
+        }
+        else {
+            nextClass = this.getClass(this.getPeriodNumber() + 1);
+        }
         if (!allowNextDay) {
             return nextClass;
         }
-        for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE; nextDayCounter++) {
+        nextClass = this.getClass(this.getPeriodNumber() + 1);
+        for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
             nextClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
         }
         return nextClass;
     };
     Schedule.prototype.getLaterClass = function (_a) {
         var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
-        var laterClass = this.getClass(this.getPeriodNumber() + 2);
+        var currentPeriodNumber = this.getPeriodNumber();
+        var laterClass;
+        if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
+            laterClass = this.NO_SCHEDULE_MSG;
+        }
+        else {
+            laterClass = this.getClass(currentPeriodNumber + 2);
+        }
         if (!allowNextDay) {
             return laterClass;
         }
-        var nextClass = this.getNextClass({ allowNextDay: true });
-        if (nextClass === this.NO_SCHEDULE) {
-            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+        var nextClass = this.getNextClass({ allowNextDay: false });
+        if (nextClass === this.NO_SCHEDULE_MSG) {
+            console.log('No next class', { nextClass: nextClass, laterClass: laterClass });
+            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
                 console.log({ prevClass: nextClass, nextDayCounter: nextDayCounter });
-                laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+                laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
             }
         }
         else {
-            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
-                laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
+            console.log('Next class', { nextClass: nextClass, laterClass: laterClass });
+            for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
+                console.log({ prevClass: nextClass, nextDayCounter: nextDayCounter });
+                laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
             }
         }
         return laterClass;
     };
     return Schedule;
-})();
+}());
 exports["default"] = Schedule;

@@ -2,11 +2,18 @@ import { TimeRange, Calendar } from './types';
 
 export default class Schedule {
   private calendar: Calendar;
-  private NO_SCHEDULE: string;
+  private BREAK: number = -4;
+  private NO_CLASSES: number = -3;
+  private ENDED: number = -2;
+  private YET_TO_START = -1;
+
+  private FREE_BIRD = [this.NO_CLASSES, this.ENDED];
+
+  private NO_SCHEDULE_MSG: string;
 
   constructor(calendar: Calendar, noScheduleMessage: string = 'No Schedule') {
     this.calendar = calendar;
-    this.NO_SCHEDULE = noScheduleMessage;
+    this.NO_SCHEDULE_MSG = noScheduleMessage;
   }
 
   private getDayNumber(date: Date = new Date()): number {
@@ -15,7 +22,7 @@ export default class Schedule {
   }
 
   public setNoScheduleMessage(message: string) {
-    this.NO_SCHEDULE = message;
+    this.NO_SCHEDULE_MSG = message;
   }
 
   public getClassTable() {
@@ -96,7 +103,7 @@ export default class Schedule {
     }
 
     if (this.calendar[dayNumber].classes.length <= period || period < 0) {
-      return this.NO_SCHEDULE;
+      return this.NO_SCHEDULE_MSG;
     }
 
     return this.calendar[dayNumber].classes[period];
@@ -107,34 +114,54 @@ export default class Schedule {
   }
 
   public getNextClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
-    let nextClass = this.getClass(this.getPeriodNumber() + 1);
+    const currentPeriodNumber = this.getPeriodNumber();
+
+    let nextClass;
+    if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
+      nextClass = this.NO_SCHEDULE_MSG;
+    } else {
+      nextClass = this.getClass(this.getPeriodNumber() + 1);
+    }
     if (!allowNextDay) {
       return nextClass;
     }
 
     // if fetch from next day is allowed
-    for (let nextDayCounter = 1; nextClass === this.NO_SCHEDULE; nextDayCounter++) {
+    nextClass = this.getClass(this.getPeriodNumber() + 1);
+    for (let nextDayCounter = 1; nextClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
       nextClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
     }
     return nextClass;
   }
 
   public getLaterClass({ allowNextDay }: { allowNextDay: boolean } = { allowNextDay: false }): string {
-    let laterClass = this.getClass(this.getPeriodNumber() + 2);
+    const currentPeriodNumber = this.getPeriodNumber();
+
+    let laterClass;
+
+    if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
+      laterClass = this.NO_SCHEDULE_MSG;
+    } else {
+      laterClass = this.getClass(currentPeriodNumber + 2);
+    }
+
     if (!allowNextDay) {
       return laterClass;
     }
 
     // if fetch from next day is allowed
-    let nextClass = this.getNextClass({ allowNextDay: true });
-    if (nextClass === this.NO_SCHEDULE) {
-      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
+    let nextClass = this.getNextClass({ allowNextDay: false });
+    if (nextClass === this.NO_SCHEDULE_MSG) {
+      console.log('No next class', { nextClass, laterClass });
+      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
         console.log({ prevClass: nextClass, nextDayCounter });
-        laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
+        laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
       }
     } else {
-      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE; nextDayCounter++) {
-        laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
+      console.log('Next class', { nextClass, laterClass });
+      for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
+        console.log({ prevClass: nextClass, nextDayCounter });
+        laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
       }
     }
 
