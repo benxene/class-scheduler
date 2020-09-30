@@ -69,15 +69,6 @@ export default class Schedule {
       return result;
     }
 
-    // check if its a break
-    if (
-      this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
-      currentTime.getHours() <
-        this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour
-    ) {
-      return this.BREAK;
-    }
-
     const testTime = new Date(time.valueOf());
     const start = this.calendar[dayNumber].timeRange[0].start;
     const end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
@@ -107,6 +98,17 @@ export default class Schedule {
         result = index;
       }
     });
+
+    if (result === this.NO_CLASSES) {
+      // check if its a break
+      if (
+        this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
+        currentTime.getHours() <
+          this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour
+      ) {
+        return this.BREAK;
+      }
+    }
 
     return result;
   }
@@ -145,7 +147,7 @@ export default class Schedule {
   public getCurrentClass({ useMeaningfulMessage } = { useMeaningfulMessage: false }): string {
     let currentClass = this.getClass();
 
-    if (useMeaningfulMessage) {
+    if (useMeaningfulMessage && currentClass === this.NO_SCHEDULE_MSG) {
       switch (this.getPeriodNumber()) {
         case this.BREAK:
           currentClass = this.BREAK_MSG;
@@ -200,15 +202,11 @@ export default class Schedule {
     // if fetch from next day is allowed
     let nextClass = this.getNextClass({ allowNextDay: false });
     if (nextClass === this.NO_SCHEDULE_MSG) {
-      console.log('No next class', { nextClass, laterClass });
       for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
-        console.log({ prevClass: nextClass, nextDayCounter });
         laterClass = this.getClass(1, this.getDayNumber() + nextDayCounter);
       }
     } else {
-      console.log('Next class', { nextClass, laterClass });
       for (let nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
-        console.log({ prevClass: nextClass, nextDayCounter });
         laterClass = this.getClass(0, this.getDayNumber() + nextDayCounter);
       }
     }
