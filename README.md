@@ -9,45 +9,53 @@
 
 A package used for Time Table functionalities in your website.
 
-# Installation
+## Installation
 
 ```sh
-#Locally on your project
-
 npm install scheduler
 ```
 
-# Usage
+## Usage
 
-> Import it in your code by ES6 version.
+### Importing
 
-```javascript
-import { Schedule } from 'scheduler';
-```
+ * For TypeScript
+ ```typescript
+  import Schedule from 'scheduler';
+  ```
 
-> Getting Started:
+ * For JavaScript
+   ES6+
+   ```javascript
+   import Schedule from 'scheduler';
+   ```
+   Common JS
+   ```javascript
+   const { default: Schedule } = require('scheduler');
+   ```
 
-```javascript
-const sch = new Schedule(calendar);
-```
+### Getting Started:
 
-> Create the calendar object in the follwing structure for each day in a week:
+Create the calendar object in the follwing structure for each day in a week:
 
 ```javascript
 const calendar: Calendar = [
   {
-    day: 'Day',
+    day: 'Sunday',
     timeRange: [
-      {
-        start: { hour: 'hour', minute: 'minute' },
-        end: { hour: 'hour', minute: 'minute' }
-      }
+      { start: { hour: 12, minute: 30 }, end: { hour: 13, minute: 30 } },
+      ...
     ],
-    classes: ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5']
+    classes: ['Class 1', ...]
   }
+  ...
 ];
 ```
-# Functions
+
+Initialize the Schedule object
+```javascript
+const sch = new Schedule(calendar);
+```
 
 <!-- > getDayNumber()<br /><br />
 > getClasses()<br/><br />
