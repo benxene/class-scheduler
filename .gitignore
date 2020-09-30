@@ -1,2 +1,5 @@
 # Node deps
 node_modules/
+
+# Test files
+test.*
