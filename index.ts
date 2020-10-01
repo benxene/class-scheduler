@@ -123,10 +123,13 @@ export default class Schedule {
     return this.calendar[dayNumber].classes;
   }
 
-  public getClassByDay(day: string): object {
+  public getClassByDay(...day: Array<string>) {
     return this.calendar.filter(value => {
-      if (value.day === day) {
-        return true;
+      let i: number;
+      for (i = 0; i < day.length; i++) {
+        if (value.day === day[i]) {
+          return true;
+        }
       }
     });
   }

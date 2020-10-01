@@ -86,10 +86,17 @@ var Schedule = (function () {
         }
         return this.calendar[dayNumber].classes;
     };
-    Schedule.prototype.getClassByDay = function (day) {
+    Schedule.prototype.getClassByDay = function () {
+        var day = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            day[_i] = arguments[_i];
+        }
         return this.calendar.filter(function (value) {
-            if (value.day === day) {
-                return true;
+            var i;
+            for (i = 0; i < day.length; i++) {
+                if (value.day === day[i]) {
+                    return true;
+                }
             }
         });
     };
