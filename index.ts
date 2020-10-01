@@ -125,11 +125,8 @@ export default class Schedule {
 
   public getClassByDay(...selectedDays: Array<string>) {
     return this.calendar.filter(value => {
-      let day: string;
-      for (day of selectedDays) {
-        if (value.day === day) {
-          return true;
-        }
+      for (let selectedDay of selectedDays) {
+        return (value.day === selectedDay);
       }
     });
   }
