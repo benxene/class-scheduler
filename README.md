@@ -134,3 +134,127 @@ The options object contains the following properties:
 | setBreakMessage       | string         | Break in-between two classes                                                 |
 | setClassesOverMessage | string         | Classes are over for today                                                   |
 | setYetToStartMessage  | string         | Today's classes are yet to begin                                             |
+
+## Methods
+
+### getClassTable
+
+Arguments: None
+
+### Returns
+
+All the classes of the week as array of array.
+
+Type: `Array<Array<string>>`
+
+### getPeriodNumber
+
+Get Period number corresponding to a given time.
+
+#### Arguments
+
+| Name | Type | isMandatory | Default      |
+| ---- | ---- | ----------- | ------------ |
+| time | Date | false       | current time |
+
+#### Returns
+
+The period number corresponding to the given time. 0 corresponds to 1st period of the day.
+
+Type: `number`
+
+##### Special values
+
+| Value | Meaning                  |
+| ----- | ------------------------ |
+| -4    | Break                    |
+| -3    | No classes today         |
+| -2    | Classes have ended       |
+| -1    | Classes are yet to start |
+
+### getClasses
+
+Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
+
+#### Arguments
+
+| Name | Type          | isMandatory | Default      |
+| ---- | ------------- | ----------- | ------------ |
+| date | Date / number | false       | current date |
+
+#### Returns
+
+An array of all the classes in the given day.
+
+Type: `Array<string>`
+
+### getClass
+
+Get the Class corresponding to a given period and day.
+
+#### Arguments
+
+| Name   | Type          | isMandatory | Default        |
+| ------ | ------------- | ----------- | -------------- |
+| period | number        | false       | current period |
+| date   | Date / number | false       | current date   |
+
+#### Returns
+
+The Class corresponding to a given period and day.
+
+Type: `string`
+
+#### Quick hint
+
+() -> currentPeriod
+(n) -> today's nth period
+(n, d) -> Day d's nth period
+
+### getCurrentClass
+
+Get the class for current time.
+
+#### Arguments [Options]
+
+| Name                   | Type    | isMandatory | Default | Description                                |
+| ---------------------- | ------- | ----------- | ------- | ------------------------------------------ |
+| {useMeaningfulMessage} | boolean | false       | false   | Toggle usage of custom No schedule message |
+
+#### Returns
+
+The current class.
+
+Type: `string`
+
+### getNextClass
+
+Get the next upcoming class.
+
+#### Arguments [Options]
+
+| Name           | Type    | isMandatory | Default | Description             |
+| -------------- | ------- | ----------- | ------- | ----------------------- |
+| {allowNextDay} | boolean | false       | false   | Toggle next day look up |
+
+#### Returns
+
+The next upcoming class.
+
+Type: `string`
+
+### getLaterClass
+
+Get the class coming after the next class.
+
+#### Arguments [Options]
+
+| Name           | Type    | isMandatory | Default | Description             |
+| -------------- | ------- | ----------- | ------- | ----------------------- |
+| {allowNextDay} | boolean | false       | false   | Toggle next day look up |
+
+#### Returns
+
+The class coming after the next class.
+
+Type: `string`
