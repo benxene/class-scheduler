@@ -61,7 +61,7 @@ const calendar = [
 ];
 ```
 
-The array must have a length of 7. The length of timeRange must be equal to the length of classes.
+The array must have a length of 7.
 
 #### Initialize the Schedule object
 
@@ -81,3 +81,56 @@ const currentClass = sch.getCurrentClass();
 const nextClass = sch.getNextClass();
 const laterClass = sch.getLaterClass();
 ```
+
+## Schema of the Calendar
+
+```typescript
+Array<{
+  day: 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
+  timeRange: Array<{
+    start: {
+      hour: number;
+      minute: number;
+    };
+    end: {
+      hour: number;
+      minute: number;
+    };
+  }>;
+  classes: Array<string>
+}>;
+```
+
+See [Quick Start Usage guide](#usage) to get a grasp of the schema.
+
+**`NOTE`** The package is not mature enough to check if the length of the `timeRange[]` comply with the length of `classes[]` or to check if the given time limit is valid or even the size of the entire array. Please make sure that you don't do anything wrong such things before reporting a bug.
+
+## Custom messages
+
+Scheduler offers several options to customize the messages shown during break times, when there are no classes, when the classes are yet to start or when the all classes have ended already.
+
+You can do that in one of the following ways:
+
+### 1. Pass it using the constructor options parameter
+
+```typescript
+constructor(calendar: Calendar, options?: object)
+```
+
+The options object contains the following properties:
+
+| Property           | Type   | Default            | Description                                                                  |
+| ------------------ | ------ | ------------------ | ---------------------------------------------------------------------------- |
+| noScheduleMessage  | string | 'No Schedule'      | No schedule for the time being, default when other messages are not provided |
+| breakMessage       | string | 'Break'            | Break in-between two classes                                                 |
+| classesOverMessage | string | 'Classes are over' | Classes are over for today                                                   |
+| yetToBeginMessage  | string | 'Yet to begin'     | Today's classes are yet to begin                                             |
+
+### 2. Use methods to set specific messages
+
+| Method name           | Parameter type | Description                                                                  |
+| --------------------- | -------------- | ---------------------------------------------------------------------------- |
+| setNoScheduleMessage  | string         | No schedule for the time being, default when other messages are not provided |
+| setBreakMessage       | string         | Break in-between two classes                                                 |
+| setClassesOverMessage | string         | Classes are over for today                                                   |
+| setYetToStartMessage  | string         | Today's classes are yet to begin                                             |
