@@ -86,6 +86,13 @@ var Schedule = (function () {
         }
         return this.calendar[dayNumber].classes;
     };
+    Schedule.prototype.getClassByDay = function (day) {
+        return this.calendar.filter(function (value) {
+            if (value.day === day) {
+                return true;
+            }
+        });
+    };
     Schedule.prototype.getClass = function (period, day) {
         if (period === void 0) { period = this.getPeriodNumber(); }
         var dayNumber;

@@ -123,6 +123,14 @@ export default class Schedule {
     return this.calendar[dayNumber].classes;
   }
 
+  public getClassByDay(day: string): object {
+    return this.calendar.filter(value => {
+      if (value.day === day) {
+        return true;
+      }
+    });
+  }
+
   public getClass(period = this.getPeriodNumber(), day?: Date | number): string {
     /*
      * () -> currentPeriod
