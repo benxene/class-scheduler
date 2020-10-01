@@ -227,6 +227,32 @@ The current class.
 
 Type: `string`
 
+### getClassByDay
+
+Get the Classes schedule corresponding to a given Day.
+
+#### Arguments
+
+| Name | Type       | isMandatory | Default     |
+| ---- | ---------- | ----------- | ----------- |
+| date | ... string | true        | empty Array |
+
+#### Returns
+
+An array of all the classes thats matches a day.
+
+Type: `Array<string>`
+
+#### Quick hint
+
+for single Day
+
+`getClassByDay('Monday') `
+
+for multiple Days
+
+`getClassByDay('Monday' , 'Friday')`
+
 ### getNextClass
 
 Get the next upcoming class.
