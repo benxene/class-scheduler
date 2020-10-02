@@ -284,3 +284,15 @@ Get the class coming after the next class.
 The class coming after the next class.
 
 Type: `string`
+
+## Authors
+
+[Krishna Moorthy](https://github.com/KrishnaMoorthy12)
+
+[Santhosh K](https://github.com/sank2000)
+
+[Pranav](https://github.com/PranavGPR)
+
+## License
+
+[MIT](LICENSE)
