@@ -225,24 +225,6 @@ Type: `string`
 
 ---
 
-### getCurrentClass
-
-Get the class for current time.
-
-#### Arguments [Options]
-
-| Name                   | Type    | isMandatory | Default | Description                                |
-| ---------------------- | ------- | ----------- | ------- | ------------------------------------------ |
-| {useMeaningfulMessage} | boolean | false       | false   | Toggle usage of custom No schedule message |
-
-#### Returns
-
-The current class.
-
-Type: `string`
-
----
-
 ### getClassByDay
 
 Get the Classes schedule corresponding to a given Day.
@@ -268,6 +250,24 @@ For single day
 For multiple days
 
 `getClassByDay('Monday' , 'Friday')`
+
+---
+
+### getCurrentClass
+
+Get the class for current time.
+
+#### Arguments [Options]
+
+| Name                   | Type    | isMandatory | Default | Description                                |
+| ---------------------- | ------- | ----------- | ------- | ------------------------------------------ |
+| {useMeaningfulMessage} | boolean | false       | false   | Toggle usage of custom No schedule message |
+
+#### Returns
+
+The current class.
+
+Type: `string`
 
 ---
 
@@ -353,4 +353,4 @@ Type: `string`
 
 ## License
 
-[MIT](LICENSE)
+[MIT License](LICENSE)
