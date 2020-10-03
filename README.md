@@ -65,22 +65,24 @@ The array must have a length of 7.
 
 #### Initialize the Schedule object
 
-```typescript
+```javascript
 const sch = new Schedule(calendar);
 ```
 
 #### Get current class
 
-```typescript
+```javascript
 const currentClass = sch.getCurrentClass();
 ```
 
 #### Get upcoming classes
 
-```typescript
+```javascript
 const nextClass = sch.getNextClass();
 const laterClass = sch.getLaterClass();
 ```
+
+---
 
 ## Schema of the Calendar
 
@@ -104,6 +106,8 @@ Array<{
 See [Quick Start Usage guide](#usage) to get a grasp of the schema.
 
 **`NOTE`** The package is not mature enough to check if the length of the `timeRange[]` comply with the length of `classes[]` or to check if the given time limit is valid or even the size of the entire array. Please make sure that you don't do anything wrong such things before reporting a bug.
+
+---
 
 ## Custom messages
 
@@ -135,17 +139,21 @@ The options object contains the following properties:
 | setClassesOverMessage | string         | Classes are over for today                                                   |
 | setYetToStartMessage  | string         | Today's classes are yet to begin                                             |
 
+---
+
 ## Methods
 
 ### getClassTable
 
 Arguments: None
 
-### Returns
+#### Returns
 
 All the classes of the week as array of array.
 
 Type: `Array<Array<string>>`
+
+---
 
 ### getPeriodNumber
 
@@ -172,6 +180,8 @@ Type: `number`
 | -2    | Classes have ended       |
 | -1    | Classes are yet to start |
 
+---
+
 ### getClasses
 
 Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
@@ -187,6 +197,8 @@ Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
 An array of all the classes in the given day.
 
 Type: `Array<string>`
+
+---
 
 ### getClass
 
@@ -211,6 +223,8 @@ Type: `string`
 (n) -> today's nth period
 (n, d) -> Day d's nth period
 
+---
+
 ### getCurrentClass
 
 Get the class for current time.
@@ -226,6 +240,8 @@ Get the class for current time.
 The current class.
 
 Type: `string`
+
+---
 
 ### getClassByDay
 
@@ -245,13 +261,15 @@ Type: `Array<string>`
 
 #### Quick hint
 
-for single Day
+For single day
 
 `getClassByDay('Monday') `
 
-for multiple Days
+For multiple days
 
 `getClassByDay('Monday' , 'Friday')`
+
+---
 
 ### getNextClass
 
@@ -268,6 +286,8 @@ Get the next upcoming class.
 The next upcoming class.
 
 Type: `string`
+
+---
 
 ### getLaterClass
 
