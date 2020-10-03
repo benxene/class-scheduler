@@ -1,12 +1,10 @@
 {
   "name": "class-scheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
   "scripts": {
     "run": "ts-node index",
-    "test-js": "node test.js",
-    "test-ts": "ts-node test.ts",
     "compile": "tsc",
     "develop:compile": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
