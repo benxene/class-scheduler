@@ -1,13 +1,13 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/benxene/blobs/main/schedule.png" align="center" alt="logo" width="75px" />
-<h1 align="center">
- Class Scheduler
-</h1>
+ <img src="https://raw.githubusercontent.com/benxene/blobs/main/schedule.png" align="center" alt="logo" width="100px" />
+ <h1 align="center">Class Scheduler</h1>
 </p>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge)](https://www.codefactor.io/repository/github/bit-18-devs/scheduler)
+<p align="center"><a href="https://www.codefactor.io/repository/github/bit-18-devs/scheduler">
+<img src="https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge" align="center" alt="logo" /></a></p>
 
-A package used for Time Table functionalities in your website.
+<p align="center">A package used for Time Table functionalities in your website.</p>
+
 
 ## Installation
 
@@ -364,9 +364,9 @@ Type: `string`
 
 ---
 
-<h2 align="center">
+<p align="center">
  Maintained by
-</h2>
+</p>
 <p align="center">
 <img
   src="https://raw.githubusercontent.com/benxene/blobs/main/benxene-w-name-right.png"
