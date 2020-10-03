@@ -1,8 +1,12 @@
-# Class Scheduler
+<p align="center">
+ <img src="https://raw.githubusercontent.com/benxene/blobs/main/schedule.png" align="center" alt="logo" width="100px" />
+ <h1 align="center">Class Scheduler</h1>
+</p>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge)](https://www.codefactor.io/repository/github/bit-18-devs/scheduler)
+<p align="center"><a href="https://www.codefactor.io/repository/github/bit-18-devs/scheduler">
+<img src="https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge" align="center" alt="logo" /></a></p>
 
-A package used for Time Table functionalities in your website.
+<p align="center">A package used for Time Table functionalities in your website.</p>
 
 ## Installation
 
@@ -225,24 +229,6 @@ Type: `string`
 
 ---
 
-### getCurrentClass
-
-Get the class for current time.
-
-#### Arguments [Options]
-
-| Name                   | Type    | isMandatory | Default | Description                                |
-| ---------------------- | ------- | ----------- | ------- | ------------------------------------------ |
-| {useMeaningfulMessage} | boolean | false       | false   | Toggle usage of custom No schedule message |
-
-#### Returns
-
-The current class.
-
-Type: `string`
-
----
-
 ### getClassByDay
 
 Get the Classes schedule corresponding to a given Day.
@@ -268,6 +254,24 @@ For single day
 For multiple days
 
 `getClassByDay('Monday' , 'Friday')`
+
+---
+
+### getCurrentClass
+
+Get the class for current time.
+
+#### Arguments [Options]
+
+| Name                   | Type    | isMandatory | Default | Description                                |
+| ---------------------- | ------- | ----------- | ------- | ------------------------------------------ |
+| {useMeaningfulMessage} | boolean | false       | false   | Toggle usage of custom No schedule message |
+
+#### Returns
+
+The current class.
+
+Type: `string`
 
 ---
 
@@ -347,10 +351,27 @@ Type: `string`
       >
       <br />
     </td>
-
   </tr>
 </table>
 
+## Contributing
+
+Refer the contributing guide [here](CONTRIBUTING.md).
+
 ## License
 
-[MIT](LICENSE)
+[MIT License](LICENSE)
+
+---
+
+<p align="center">
+ Maintained by
+</p>
+<p align="center">
+<img
+  src="https://raw.githubusercontent.com/benxene/blobs/main/benxene-w-name-right.png"
+   width="128px;"
+   alt="log0"
+   align="center"
+/>
+</p>
