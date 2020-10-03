@@ -1,4 +1,4 @@
-# Scheduler
+# Class Scheduler
 
 [![CodeFactor](https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge)](https://www.codefactor.io/repository/github/bit-18-devs/scheduler)
 
@@ -7,7 +7,7 @@ A package used for Time Table functionalities in your website.
 ## Installation
 
 ```sh
-npm install scheduler
+npm install class-scheduler
 ```
 
 ## Quick Start
@@ -17,7 +17,7 @@ npm install scheduler
 - For TypeScript
 
   ```typescript
-  import Schedule from 'scheduler';
+  import Schedule from 'class-scheduler';
   ```
 
 - For JavaScript
@@ -25,13 +25,13 @@ npm install scheduler
   - ES6+
 
     ```javascript
-    import Schedule from 'scheduler';
+    import Schedule from 'class-scheduler';
     ```
 
   - Common JS
 
     ```javascript
-    const { default: Schedule } = require('scheduler');
+    const { default: Schedule } = require('class-scheduler');
     ```
 
 ---
