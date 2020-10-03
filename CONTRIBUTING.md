@@ -23,3 +23,17 @@ Wait for the maintainers to assign it to you, before creating PR.
 Before creating a pull request, make sure you have documented the changes and updated CHANGELOG.md, addressing the issue to which it is related.
 
 Thank you for showing interest in contributing to this Open Source project 🤗.
+
+---
+
+<p align="center">
+ Maintained by
+</p>
+<p align="center">
+<img
+  src="https://raw.githubusercontent.com/benxene/blobs/main/benxene-w-name-right.png"
+   width="128px;"
+   alt="log0"
+   align="center"
+/>
+</p>

@@ -8,7 +8,6 @@
 
 <p align="center">A package used for Time Table functionalities in your website.</p>
 
-
 ## Installation
 
 ```sh
@@ -352,11 +351,12 @@ Type: `string`
       >
       <br />
     </td>
-
   </tr>
 </table>
 
----
+## Contributing
+
+Refer the contributing guide [here](CONTRIBUTING.md).
 
 ## License
 
