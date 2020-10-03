@@ -3,10 +3,18 @@
  <h1 align="center">Class Scheduler</h1>
 </p>
 
-<p align="center"><a href="https://www.codefactor.io/repository/github/bit-18-devs/scheduler">
-<img src="https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge" align="center" alt="logo" /></a></p>
+<p align="center">
+<a href="https://www.codefactor.io/repository/github/bit-18-devs/scheduler">
+<img src="https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge" align="center" alt="codefactor" /></a>
+<a href="https://www.npmjs.com/package/class-scheduler">
+<img alt="npm" src="https://img.shields.io/npm/v/class-scheduler?color=%23CC3534&style=for-the-badge" align="center" />
+</a>
+<a href="https://www.npmjs.com/package/class-scheduler">
+<img alt="npm bundle size" align="center" src="https://img.shields.io/bundlephobia/minzip/class-scheduler?color=%2310BE41&style=for-the-badge">
+</a>
+</p>
 
-<p align="center">A package used for Time Table functionalities in your website.</p>
+<p align="center">A zero dependency class schedule manager.</p>
 
 ## Installation
 
