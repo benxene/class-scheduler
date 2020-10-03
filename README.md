@@ -65,19 +65,19 @@ The array must have a length of 7.
 
 #### Initialize the Schedule object
 
-```javascript
+```typescript
 const sch = new Schedule(calendar);
 ```
 
 #### Get current class
 
-```javascript
+```typescript
 const currentClass = sch.getCurrentClass();
 ```
 
 #### Get upcoming classes
 
-```javascript
+```typescript
 const nextClass = sch.getNextClass();
 const laterClass = sch.getLaterClass();
 ```
