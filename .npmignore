@@ -1,0 +1,11 @@
+
+# configurations
+.prettierrc
+tsconfig.json
+
+# Markdowns
+CONTRIBUTING.md
+
+# Test files
+test.js
+test.ts
