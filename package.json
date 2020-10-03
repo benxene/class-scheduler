@@ -1,5 +1,5 @@
 {
-  "name": "scheduler",
+  "name": "class-scheduler",
   "version": "1.0.0",
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
