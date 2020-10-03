@@ -1,4 +1,9 @@
-# Class Scheduler
+<p align="center">
+<img src="https://raw.githubusercontent.com/benxene/blobs/main/schedule.png" align="center" alt="logo" width="75px" />
+<h1 align="center">
+ Class Scheduler
+</h1>
+</p>
 
 [![CodeFactor](https://www.codefactor.io/repository/github/bit-18-devs/scheduler/badge?s=7306cacb73574d28ce5053a222211d153e64b451&style=for-the-badge)](https://www.codefactor.io/repository/github/bit-18-devs/scheduler)
 
@@ -351,6 +356,22 @@ Type: `string`
   </tr>
 </table>
 
+---
+
 ## License
 
 [MIT License](LICENSE)
+
+---
+
+<h2 align="center">
+ Maintained by
+</h2>
+<p align="center">
+<img
+  src="https://raw.githubusercontent.com/benxene/blobs/main/benxene-w-name-right.png"
+   width="128px;"
+   alt="log0"
+   align="center"
+/>
+</p>
