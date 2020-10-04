@@ -9,10 +9,7 @@
     "develop:compile": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/benxene/class-scheduler.git"
-  },
+  "repository": "git+https://github.com/benxene/class-scheduler.git",
   "keywords": [
     "schedule",
     "timetable"

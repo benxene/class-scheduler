@@ -18,8 +18,16 @@
 
 ## Installation
 
+- Using npm
+
 ```sh
 npm install class-scheduler
+```
+
+- Using yarn
+
+```sh
+yarn add class-scheduler
 ```
 
 ## Quick Start
