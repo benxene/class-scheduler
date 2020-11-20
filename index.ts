@@ -1,10 +1,9 @@
 import { TimeRange, Calendar } from './types';
 
 export default class Schedule {
-  private calendar: Calendar;
-  private BREAK: number = -4;
-  private NO_CLASSES: number = -3;
-  private ENDED: number = -2;
+  private BREAK = -4;
+  private NO_CLASSES = -3;
+  private ENDED = -2;
   private YET_TO_START = -1;
 
   private FREE_BIRD = [this.NO_CLASSES, this.ENDED];
@@ -15,7 +14,7 @@ export default class Schedule {
   private YET_TO_MSG: string;
 
   constructor(
-    calendar: Calendar,
+    private calendar: Calendar,
     { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage } = {
       noScheduleMessage: 'No Schedule',
       breakMessage: 'Break',
@@ -126,7 +125,7 @@ export default class Schedule {
   public getClassByDay(...selectedDays: Array<string>) {
     return this.calendar.filter(value => {
       for (let selectedDay of selectedDays) {
-        return (value.day === selectedDay);
+        return value.day === selectedDay;
       }
     });
   }

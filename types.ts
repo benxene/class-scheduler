@@ -1,16 +1,6 @@
 export type Time = { hour: number; minute: number };
 
-export enum Day {
-  Sunday = 'Sunday',
-  Monday = 'Monday',
-  Tuesday = 'Tuesday',
-  Wednesday = 'Wednesday',
-  Thursday = 'Thursday',
-  Friday = 'Friday',
-  Saturday = 'Saturday'
-}
-
-type Days = 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
+type Day = 'Sunday' | 'Monday' | 'Tuesday' | 'Wednesday' | 'Thursday' | 'Friday' | 'Saturday';
 
 export type TimeRange = {
   start: Time;
@@ -18,7 +8,7 @@ export type TimeRange = {
 };
 
 export type Calendar = Array<{
-  day: Day | Days;
+  day: Day;
   timeRange: Array<TimeRange>;
   classes: Array<string>;
 }>;
