@@ -1,5 +1,3 @@
-"use strict";
-exports.__esModule = true;
 var Schedule = (function () {
     function Schedule(calendar, _a) {
         var _b = _a === void 0 ? {
@@ -8,6 +6,7 @@ var Schedule = (function () {
             classesOverMessage: 'Classes are over',
             yetToBeginMessage: 'Yet to begin'
         } : _a, noScheduleMessage = _b.noScheduleMessage, breakMessage = _b.breakMessage, classesOverMessage = _b.classesOverMessage, yetToBeginMessage = _b.yetToBeginMessage;
+        this.calendar = calendar;
         this.BREAK = -4;
         this.NO_CLASSES = -3;
         this.ENDED = -2;
@@ -39,6 +38,12 @@ var Schedule = (function () {
         return this.calendar.map(function (value) { return value.classes; });
     };
     Schedule.prototype.getPeriodNumber = function (time) {
+        /*
+         * -4 : break
+         * -3 : no classes today,
+         * -2 : classes have ended,
+         * -1 : classes are yet to start
+         */
         if (time === void 0) { time = new Date(); }
         var dayNumber = this.getDayNumber(time);
         var result = this.NO_CLASSES;
@@ -89,15 +94,12 @@ var Schedule = (function () {
     Schedule.prototype.getClassByDay = function () {
         var selectedDays = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            selectedDays[_i] = arguments[_i];
+            selectedDays[_i - 0] = arguments[_i];
         }
         return this.calendar.filter(function (value) {
-            var day;
-            for (var _i = 0, selectedDays_1 = selectedDays; _i < selectedDays_1.length; _i++) {
-                day = selectedDays_1[_i];
-                if (value.day === day) {
-                    return true;
-                }
+            for (var _i = 0; _i < selectedDays.length; _i++) {
+                var selectedDay = selectedDays[_i];
+                return value.day === selectedDay;
             }
         });
     };
@@ -190,5 +192,5 @@ var Schedule = (function () {
         return laterClass;
     };
     return Schedule;
-}());
+})();
 exports["default"] = Schedule;
