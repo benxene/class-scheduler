@@ -1,3 +1,5 @@
+"use strict";
+exports.__esModule = true;
 var Schedule = (function () {
     function Schedule(calendar, _a) {
         var _b = _a === void 0 ? {
@@ -38,12 +40,6 @@ var Schedule = (function () {
         return this.calendar.map(function (value) { return value.classes; });
     };
     Schedule.prototype.getPeriodNumber = function (time) {
-        /*
-         * -4 : break
-         * -3 : no classes today,
-         * -2 : classes have ended,
-         * -1 : classes are yet to start
-         */
         if (time === void 0) { time = new Date(); }
         var dayNumber = this.getDayNumber(time);
         var result = this.NO_CLASSES;
@@ -94,11 +90,11 @@ var Schedule = (function () {
     Schedule.prototype.getClassByDay = function () {
         var selectedDays = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            selectedDays[_i - 0] = arguments[_i];
+            selectedDays[_i] = arguments[_i];
         }
         return this.calendar.filter(function (value) {
-            for (var _i = 0; _i < selectedDays.length; _i++) {
-                var selectedDay = selectedDays[_i];
+            for (var _i = 0, selectedDays_1 = selectedDays; _i < selectedDays_1.length; _i++) {
+                var selectedDay = selectedDays_1[_i];
                 return value.day === selectedDay;
             }
         });
@@ -118,7 +114,7 @@ var Schedule = (function () {
         return this.calendar[dayNumber].classes[period];
     };
     Schedule.prototype.getCurrentClass = function (_a) {
-        var useMeaningfulMessage = (_a === void 0 ? { useMeaningfulMessage: false } : _a).useMeaningfulMessage;
+        var _b = _a === void 0 ? { useMeaningfulMessage: false } : _a, useMeaningfulMessage = _b.useMeaningfulMessage;
         var currentClass = this.getClass();
         if (useMeaningfulMessage && currentClass === this.NO_SCHEDULE_MSG) {
             switch (this.getPeriodNumber()) {
@@ -135,7 +131,7 @@ var Schedule = (function () {
         return currentClass;
     };
     Schedule.prototype.getNextClass = function (_a) {
-        var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
+        var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
         var currentPeriodNumber = this.getPeriodNumber();
         var nextClass;
         if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
@@ -158,7 +154,7 @@ var Schedule = (function () {
         return nextClass;
     };
     Schedule.prototype.getLaterClass = function (_a) {
-        var allowNextDay = (_a === void 0 ? { allowNextDay: false } : _a).allowNextDay;
+        var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
         var currentPeriodNumber = this.getPeriodNumber();
         var laterClass;
         if (this.FREE_BIRD.indexOf(currentPeriodNumber) >= 0) {
@@ -192,5 +188,5 @@ var Schedule = (function () {
         return laterClass;
     };
     return Schedule;
-})();
+}());
 exports["default"] = Schedule;
