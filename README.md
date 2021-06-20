@@ -239,25 +239,27 @@ Type: `string`
 
 #### Quick hint
 
-() -> currentPeriod
-(n) -> today's nth period
-(n, d) -> Day d's nth period
+`()` -> currentPeriod
+
+`(n)` -> today's nth period
+
+`(n, d)` -> Day d's nth period
 
 ---
 
 ### getClassByDay
 
-Get the Classes schedule corresponding to a given Day.
+Get the Class schedule corresponding to given days.
 
 #### Arguments
 
-| Name | Type       | isMandatory | Default     |
-| ---- | ---------- | ----------- | ----------- |
-| date | ... string | true        | empty Array |
+| Name | Type       | isMandatory | Default |
+| ---- | ---------- | ----------- | ------- |
+| date | ... string | true        | not set |
 
 #### Returns
 
-An array of all the classes thats matches a day.
+An array of all the classes that matches the given days.
 
 Type: `Array<string>`
 

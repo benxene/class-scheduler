@@ -1,6 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var Schedule = (function () {
+var Schedule = /** @class */ (function () {
+    /**
+     *
+     * @param calendar : Array<{ day: Day, timeRange: Array<TimeRange>, classes: Array<string>;}>
+     * @param customMessages ?: { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage }
+     */
     function Schedule(calendar, _a) {
         var _b = _a === void 0 ? {
             noScheduleMessage: 'No Schedule',
@@ -20,44 +25,84 @@ var Schedule = (function () {
         this.CLASSES_OVER_MSG = classesOverMessage;
         this.YET_TO_MSG = yetToBeginMessage;
     }
+    /**
+     *
+     * @param date: Date
+     * @returns number corresponding to the day: number
+     */
     Schedule.prototype.getDayNumber = function (date) {
         if (date === void 0) { date = new Date(); }
+        // @returns 0 -> Sunday, 1-> Monday, ..., 6-> Saturday
         return date.getDay();
     };
+    /**
+     * Set No schedule custom message
+     * @param message : String
+     */
     Schedule.prototype.setNoScheduleMessage = function (message) {
         this.NO_SCHEDULE_MSG = message;
     };
+    /**
+     * Set Break time custom message
+     * @param message : String
+     */
     Schedule.prototype.setBreakMessage = function (message) {
         this.BREAK_MSG = message;
     };
+    /**
+     * Set all classes over custom message
+     * @param message : String
+     */
     Schedule.prototype.setClassesOverMessage = function (message) {
         this.CLASSES_OVER_MSG = message;
     };
+    /**
+     * Set classes yet to begin custom message
+     * @param message : String
+     */
     Schedule.prototype.setYetToStartMessage = function (message) {
         this.YET_TO_MSG = message;
     };
+    /**
+     * Get time table
+     * @returns the time table as Array<Array<String>>
+     */
     Schedule.prototype.getClassTable = function () {
         return this.calendar.map(function (value) { return value.classes; });
     };
+    /**
+     * Get period number
+     * @param time ?: Date | now
+     * @returns period number for the given `time`
+     *
+     * -4 : break
+     * -3 : no classes today,
+     * -2 : classes have ended,
+     * -1 : classes are yet to start
+     */
     Schedule.prototype.getPeriodNumber = function (time) {
         if (time === void 0) { time = new Date(); }
         var dayNumber = this.getDayNumber(time);
         var result = this.NO_CLASSES;
         var currentTime = new Date(time.valueOf());
+        // check if the day has no classes
         if (this.calendar[dayNumber].classes.length === 0) {
             return result;
         }
         var testTime = new Date(time.valueOf());
         var start = this.calendar[dayNumber].timeRange[0].start;
         var end = this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].end;
+        // check if the classes are yet to start
         testTime.setHours(start.hour, start.minute);
         if (currentTime.getTime() < testTime.getTime()) {
             return this.YET_TO_START;
         }
+        // check if the classes have ended
         testTime.setHours(end.hour, end.minute);
         if (currentTime.getTime() > testTime.getTime()) {
             return this.ENDED;
         }
+        // Check with current time
         this.calendar[dayNumber].timeRange.forEach(function (_a, index) {
             var start = _a.start, end = _a.end;
             var startTime = new Date(time.valueOf());
@@ -69,6 +114,7 @@ var Schedule = (function () {
             }
         });
         if (result === this.NO_CLASSES) {
+            // check if its a break
             if (this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
                 currentTime.getHours() <
                     this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour) {
@@ -77,6 +123,11 @@ var Schedule = (function () {
         }
         return result;
     };
+    /**
+     * Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
+     * @param Date / day number
+     * @returns An array of all the classes in the given day.
+     */
     Schedule.prototype.getClasses = function (date) {
         var dayNumber;
         if (typeof date === 'number') {
@@ -87,6 +138,11 @@ var Schedule = (function () {
         }
         return this.calendar[dayNumber].classes;
     };
+    /**
+     * Get the Classes schedule corresponding to given days.
+     * @param selectedDays
+     * @returns An array of all the classes that matches the days.
+     */
     Schedule.prototype.getClassByDay = function () {
         var selectedDays = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -99,6 +155,17 @@ var Schedule = (function () {
             }
         });
     };
+    /**
+     * Get the Class corresponding to a given period and day.
+     * @param period: period number
+     * @param day: Date | Day Number
+     * @returns Class - String
+     *
+     * NOTE:
+     * () -> currentPeriod
+     * (n) -> today's nth period
+     * (n, d) -> Day d's nth period
+     */
     Schedule.prototype.getClass = function (period, day) {
         if (period === void 0) { period = this.getPeriodNumber(); }
         var dayNumber;
@@ -130,6 +197,11 @@ var Schedule = (function () {
         }
         return currentClass;
     };
+    /**
+     * Get the next upcoming class.
+     * @param options: {allowNextDay} : Toggle next day look up - boolean
+     * @returns the next class - string
+     */
     Schedule.prototype.getNextClass = function (_a) {
         var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
         var currentPeriodNumber = this.getPeriodNumber();
@@ -143,6 +215,7 @@ var Schedule = (function () {
         if (!allowNextDay) {
             return nextClass;
         }
+        // if fetch from next day is allowed
         nextClass = this.getClass(this.getPeriodNumber() + 1);
         for (var nextDayCounter = 1; nextClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
             var newDay = this.getDayNumber() + nextDayCounter;
@@ -153,6 +226,11 @@ var Schedule = (function () {
         }
         return nextClass;
     };
+    /**
+     * Get the class coming after the next class.
+     * @param options: { allowNextDay } : Toggle next day look up - boolean
+     * @returns The class coming after the next class - string
+     */
     Schedule.prototype.getLaterClass = function (_a) {
         var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
         var currentPeriodNumber = this.getPeriodNumber();
@@ -166,6 +244,7 @@ var Schedule = (function () {
         if (!allowNextDay) {
             return laterClass;
         }
+        // if fetch from next day is allowed
         var nextClass = this.getNextClass({ allowNextDay: false });
         if (nextClass === this.NO_SCHEDULE_MSG) {
             for (var nextDayCounter = 1; laterClass === this.NO_SCHEDULE_MSG; nextDayCounter++) {
