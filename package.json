@@ -6,7 +6,7 @@
   "scripts": {
     "run": "ts-node index",
     "compile": "tsc",
-    "develop:compile": "tsc -w",
+    "dev": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git+https://github.com/benxene/class-scheduler.git",
