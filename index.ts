@@ -13,6 +13,11 @@ export default class Schedule {
   private CLASSES_OVER_MSG: string;
   private YET_TO_MSG: string;
 
+  /**
+   *
+   * @param calendar : Array<{ day: Day, timeRange: Array<TimeRange>, classes: Array<string>;}>
+   * @param customMessages ?: { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage }
+   */
   constructor(
     private calendar: Calendar,
     { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage } = {
@@ -29,36 +34,67 @@ export default class Schedule {
     this.YET_TO_MSG = yetToBeginMessage;
   }
 
+  /**
+   *
+   * @param date: Date
+   * @returns number corresponding to the day: number
+   */
   private getDayNumber(date: Date = new Date()): number {
     // @returns 0 -> Sunday, 1-> Monday, ..., 6-> Saturday
     return date.getDay();
   }
 
+  /**
+   * Set No schedule custom message
+   * @param message : String
+   */
   public setNoScheduleMessage(message: string) {
     this.NO_SCHEDULE_MSG = message;
   }
+
+  /**
+   * Set Break time custom message
+   * @param message : String
+   */
   public setBreakMessage(message: string) {
     this.BREAK_MSG = message;
   }
+
+  /**
+   * Set all classes over custom message
+   * @param message : String
+   */
   public setClassesOverMessage(message: string) {
     this.CLASSES_OVER_MSG = message;
   }
+
+  /**
+   * Set classes yet to begin custom message
+   * @param message : String
+   */
   public setYetToStartMessage(message: string) {
     this.YET_TO_MSG = message;
   }
 
+  /**
+   * Get time table
+   * @returns the time table as Array<Array<String>>
+   */
   public getClassTable() {
     return this.calendar.map(value => value.classes);
   }
 
+  /**
+   * Get period number
+   * @param time ?: Date | now
+   * @returns period number for the given `time`
+   *
+   * -4 : break
+   * -3 : no classes today,
+   * -2 : classes have ended,
+   * -1 : classes are yet to start
+   */
   public getPeriodNumber(time: Date = new Date()): number {
-    /*
-     * -4 : break
-     * -3 : no classes today,
-     * -2 : classes have ended,
-     * -1 : classes are yet to start
-     */
-
     const dayNumber = this.getDayNumber(time);
     let result = this.NO_CLASSES;
     const currentTime = new Date(time.valueOf());
@@ -112,6 +148,11 @@ export default class Schedule {
     return result;
   }
 
+  /**
+   * Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
+   * @param Date / day number
+   * @returns An array of all the classes in the given day.
+   */
   public getClasses(date?: Date | number): Array<string> {
     let dayNumber: number;
     if (typeof date === 'number') {
@@ -122,6 +163,11 @@ export default class Schedule {
     return this.calendar[dayNumber].classes;
   }
 
+  /**
+   * Get the Classes schedule corresponding to given days.
+   * @param selectedDays
+   * @returns An array of all the classes that matches the days.
+   */
   public getClassByDay(...selectedDays: Array<string>) {
     return this.calendar.filter(value => {
       for (let selectedDay of selectedDays) {
@@ -130,12 +176,18 @@ export default class Schedule {
     });
   }
 
+  /**
+   * Get the Class corresponding to a given period and day.
+   * @param period: period number
+   * @param day: Date | Day Number
+   * @returns Class - String
+   *
+   * NOTE:
+   * () -> currentPeriod
+   * (n) -> today's nth period
+   * (n, d) -> Day d's nth period
+   */
   public getClass(period = this.getPeriodNumber(), day?: Date | number): string {
-    /*
-     * () -> currentPeriod
-     * (n) -> today's nth period
-     * (n, d) -> Day d's nth period
-     */
     let dayNumber: number;
 
     if (typeof day === 'number') {
@@ -170,6 +222,11 @@ export default class Schedule {
     return currentClass;
   }
 
+  /**
+   * Get the next upcoming class.
+   * @param options: {allowNextDay} : Toggle next day look up - boolean
+   * @returns the next class - string
+   */
   public getNextClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
 
@@ -195,6 +252,11 @@ export default class Schedule {
     return nextClass;
   }
 
+  /**
+   * Get the class coming after the next class.
+   * @param options: { allowNextDay } : Toggle next day look up - boolean
+   * @returns The class coming after the next class - string
+   */
   public getLaterClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
 
