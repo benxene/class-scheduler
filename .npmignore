@@ -2,10 +2,13 @@
 # configurations
 .prettierrc
 tsconfig.json
+.babelrc
 
 # Markdowns
 CONTRIBUTING.md
+README.md
 
 # Test files
-test.js
-test.ts
+*.test.js
+*.test.ts
+jest.config.ts
