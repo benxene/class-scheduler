@@ -44,45 +44,81 @@ describe('Main suite', () => {
 });
 
 describe('Get Period number', () => {
-  it('should be 0 for the first period (9:40)', () => {
+  it('should return a number for any time', () => {
+    expect(typeof schedule.getPeriodNumber()).toBe(typeof 1);
+  });
+
+  it('should return 0 for the first period (9:40)', () => {
     const firstPeriodTime = new Date();
     firstPeriodTime.setFullYear(2021, 5, 28); // Monday
     firstPeriodTime.setHours(9, 40);
     expect(schedule.getPeriodNumber(firstPeriodTime)).toBe(0);
   });
 
-  it('should be 2 for the 3rd period (13:40)', () => {
+  it('should return 2 for the 3rd period (13:40)', () => {
     const lastHour = new Date();
     lastHour.setFullYear(2021, 5, 28);
     lastHour.setHours(13, 40);
     expect(schedule.getPeriodNumber(lastHour)).toBe(2);
   });
 
-  it('should be -4 (break) on Monday 13:00', () => {
+  it('should return -4 (break) on Monday 13:00', () => {
     const breakTime = new Date();
     breakTime.setFullYear(2021, 5, 28);
     breakTime.setHours(13, 0);
     expect(schedule.getPeriodNumber(breakTime)).toBe(-4);
   });
 
-  it('should be -3 (no classes) on Sunday', () => {
+  it('should return -3 (no classes) on Sunday', () => {
     const sunday = new Date();
     sunday.setFullYear(2021, 5, 27);
     sunday.setHours(9, 30);
     expect(schedule.getPeriodNumber(sunday)).toBe(-3);
   });
 
-  it('should be -2 (ended) at evening', () => {
+  it('should return -2 (ended) at evening', () => {
     const evening = new Date();
     evening.setFullYear(2021, 5, 28);
     evening.setHours(18, 30);
     expect(schedule.getPeriodNumber(evening)).toBe(-2);
   });
 
-  it('should be -1 (yet to start) on early morning', () => {
+  it('should return -1 (yet to start) on early morning', () => {
     const earlyMorning = new Date();
     earlyMorning.setFullYear(2021, 5, 28);
     earlyMorning.setHours(7, 30);
     expect(schedule.getPeriodNumber(earlyMorning)).toBe(-1);
+  });
+});
+
+describe('Get Classes', () => {
+  it('should return an array', () => {
+    expect(Array.isArray(schedule.getClasses())).toBe(true);
+  });
+
+  it('should return ["A", "B", "C"] for Day 1', () => {
+    expect(schedule.getClasses(1)).toEqual(['A', 'B', 'C']);
+  });
+
+  it('should return ["D"] for Tuesday (Date)', () => {
+    const tuesday = new Date();
+    tuesday.setFullYear(2021, 5, 29);
+    expect(schedule.getClasses(tuesday)).toEqual(['D']);
+  });
+});
+
+describe('Get Class', () => {
+  it('should return a string', () => {
+    expect(typeof schedule.getClass()).toBe(typeof 'a');
+  });
+
+  it('should be "G" for Day #5 1st period', () => {
+    expect(schedule.getClass(0, 5)).toBe('G');
+  });
+
+  it('should be "B" for Monday 2nd period', () => {
+    const mon2nd = new Date();
+    mon2nd.setFullYear(2021, 5, 28);
+    expect(schedule.getClass(1, mon2nd)).toBe('B');
   });
 });
