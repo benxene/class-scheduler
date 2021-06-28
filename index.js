@@ -115,9 +115,10 @@ var Schedule = /** @class */ (function () {
         });
         if (result === this.NO_CLASSES) {
             // check if its a break
-            if (this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
-                currentTime.getHours() <
-                    this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour) {
+            if (currentTime.getHours() <=
+                this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour &&
+                currentTime.getMinutes() <
+                    this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.minute) {
                 return this.BREAK;
             }
         }
@@ -180,6 +181,11 @@ var Schedule = /** @class */ (function () {
         }
         return this.calendar[dayNumber].classes[period];
     };
+    /**
+     * Get the current scheduled class
+     * @param options: {useMeaningfulMessage: boolean : false}
+     * @returns String
+     */
     Schedule.prototype.getCurrentClass = function (_a) {
         var _b = _a === void 0 ? { useMeaningfulMessage: false } : _a, useMeaningfulMessage = _b.useMeaningfulMessage;
         var currentClass = this.getClass();

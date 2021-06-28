@@ -137,9 +137,10 @@ export default class Schedule {
     if (result === this.NO_CLASSES) {
       // check if its a break
       if (
-        this.calendar[dayNumber].timeRange[0].start.hour < currentTime.getHours() &&
-        currentTime.getHours() <
-          this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour
+        currentTime.getHours() <=
+          this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.hour &&
+        currentTime.getMinutes() <
+          this.calendar[dayNumber].timeRange[this.calendar[dayNumber].timeRange.length - 1].start.minute
       ) {
         return this.BREAK;
       }
@@ -203,6 +204,11 @@ export default class Schedule {
     return this.calendar[dayNumber].classes[period];
   }
 
+  /**
+   * Get the current scheduled class
+   * @param options: {useMeaningfulMessage: boolean : false}
+   * @returns String
+   */
   public getCurrentClass({ useMeaningfulMessage } = { useMeaningfulMessage: false }): string {
     let currentClass = this.getClass();
 
