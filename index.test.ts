@@ -122,3 +122,34 @@ describe('Get Class', () => {
     expect(schedule.getClass(1, mon2nd)).toBe('B');
   });
 });
+
+describe('Get Class by Day', () => {
+  it('should return an array', () => {
+    expect(Array.isArray(schedule.getClassByDay('Sunday'))).toBe(true);
+  });
+
+  it('should return an array of objects with properties: day, timeRange and classes', () => {
+    const sundayTTObj = schedule.getClassByDay('Sunday')[0];
+    expect(sundayTTObj).toHaveProperty('day', 'Sunday');
+    expect(sundayTTObj).toHaveProperty('timeRange');
+    expect(sundayTTObj).toHaveProperty('classes');
+  });
+});
+
+describe('Get Current Class', () => {
+  it('should return a string', () => {
+    expect(typeof schedule.getCurrentClass()).toBe(typeof 'String');
+  });
+});
+
+describe('Get Next class', () => {
+  it('should return a string', () => {
+    expect(typeof schedule.getNextClass()).toBe(typeof 'String');
+  });
+});
+
+describe('Get Later class', () => {
+  it('should return a string', () => {
+    expect(typeof schedule.getLaterClass()).toBe(typeof 'String');
+  });
+});
