@@ -203,6 +203,11 @@ export default class Schedule {
     return this.calendar[dayNumber].classes[period];
   }
 
+  /**
+   * Get the current scheduled class
+   * @param options: {useMeaningfulMessage: boolean : false}
+   * @returns String
+   */
   public getCurrentClass({ useMeaningfulMessage } = { useMeaningfulMessage: false }): string {
     let currentClass = this.getClass();
 
