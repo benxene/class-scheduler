@@ -48,4 +48,39 @@ describe('Main suite', () => {
     firstPeriodTime.setHours(9, 40);
     expect(schedule.getPeriodNumber(firstPeriodTime)).toBe(0);
   });
+
+  it('should be 2 for the 3rd period (13:40)', () => {
+    const lastHour = new Date();
+    lastHour.setFullYear(2021, 5, 28);
+    lastHour.setHours(13, 40);
+    expect(schedule.getPeriodNumber(lastHour)).toBe(2);
+  });
+
+  it('should be -4 (break) on Monday 13:00', () => {
+    const breakTime = new Date();
+    breakTime.setFullYear(2021, 5, 28);
+    breakTime.setHours(13, 0);
+    expect(schedule.getPeriodNumber(breakTime)).toBe(-4);
+  });
+
+  it('should be -3 (no classes) on Sunday', () => {
+    const sunday = new Date();
+    sunday.setFullYear(2021, 5, 27);
+    sunday.setHours(9, 30);
+    expect(schedule.getPeriodNumber(sunday)).toBe(-3);
+  });
+
+  it('should be -2 (ended) at evening', () => {
+    const evening = new Date();
+    evening.setFullYear(2021, 5, 28);
+    evening.setHours(18, 30);
+    expect(schedule.getPeriodNumber(evening)).toBe(-2);
+  });
+
+  it('should be -1 (yet to start) on early morning', () => {
+    const earlyMorning = new Date();
+    earlyMorning.setFullYear(2021, 5, 28);
+    earlyMorning.setHours(7, 30);
+    expect(schedule.getPeriodNumber(earlyMorning)).toBe(-1);
+  });
 });
