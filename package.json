@@ -7,6 +7,8 @@
     "run": "ts-node index",
     "compile": "tsc",
     "dev": "tsc -w",
+    "format": "prettier --write \"**/*.{ts,md}\"",
+    "format:check": "prettier -c \"**/*.{ts,md}\"",
     "test": "jest"
   },
   "repository": "git+https://github.com/benxene/class-scheduler.git",
