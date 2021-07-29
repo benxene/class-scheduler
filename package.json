@@ -9,6 +9,7 @@
     "dev": "tsc -w",
     "format": "prettier --write \"**/*.{ts,md}\"",
     "format:check": "prettier -c \"**/*.{ts,md}\"",
+    "prepare": "husky install",
     "test": "jest"
   },
   "repository": "git+https://github.com/benxene/class-scheduler.git",
@@ -28,6 +29,7 @@
     "@babel/preset-typescript": "^7.14.5",
     "@types/jest": "^26.0.23",
     "babel-jest": "^27.0.5",
+    "husky": "^7.0.1",
     "jest": "^27.0.5",
     "prettier": "^2.3.1",
     "ts-node": "^10.0.0",
