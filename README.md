@@ -37,7 +37,7 @@ yarn add class-scheduler
 - For TypeScript
 
   ```typescript
-  import Schedule from 'class-scheduler';
+  import { Schedule } from 'class-scheduler';
   ```
 
 - For JavaScript
@@ -45,13 +45,13 @@ yarn add class-scheduler
   - ES6+
 
     ```javascript
-    import Schedule from 'class-scheduler';
+    import { Schedule } from 'class-scheduler';
     ```
 
   - Common JS
 
     ```javascript
-    const { default: Schedule } = require('class-scheduler');
+    const { Schedule } = require('class-scheduler');
     ```
 
 ---

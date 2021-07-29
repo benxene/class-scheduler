@@ -1,6 +1,6 @@
 import { TimeRange, Calendar } from './types';
 
-export default class Schedule {
+export class Schedule {
   private BREAK = -4;
   private NO_CLASSES = -3;
   private ENDED = -2;

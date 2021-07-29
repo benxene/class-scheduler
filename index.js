@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+exports.Schedule = void 0;
 var Schedule = /** @class */ (function () {
     /**
      *
@@ -274,4 +275,4 @@ var Schedule = /** @class */ (function () {
     };
     return Schedule;
 }());
-exports["default"] = Schedule;
+exports.Schedule = Schedule;

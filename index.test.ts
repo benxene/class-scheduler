@@ -1,8 +1,8 @@
 import { describe } from '@jest/globals';
-import Schedule from './index';
+import { Schedule } from './index';
 import { Calendar } from './types';
 
-let calendar: Calendar = [
+const calendar: Calendar = [
   { day: 'Sunday', timeRange: [], classes: [] },
   {
     day: 'Monday',
@@ -35,7 +35,8 @@ let calendar: Calendar = [
   },
   { day: 'Saturday', timeRange: [], classes: [] }
 ];
-let schedule = new Schedule(calendar);
+
+const schedule = new Schedule(calendar);
 
 describe('Main suite', () => {
   it('should be array of classes', () => {
