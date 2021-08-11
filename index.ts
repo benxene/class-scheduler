@@ -1,12 +1,12 @@
 import { TimeRange, Calendar } from './types';
 
 export class Schedule {
-  private BREAK = -4;
-  private NO_CLASSES = -3;
-  private ENDED = -2;
-  private YET_TO_START = -1;
+  private readonly BREAK = -4;
+  private readonly NO_CLASSES = -3;
+  private readonly ENDED = -2;
+  private readonly YET_TO_START = -1;
 
-  private FREE_BIRD = [this.NO_CLASSES, this.ENDED];
+  private readonly FREE_BIRD = [this.NO_CLASSES, this.ENDED];
 
   private NO_SCHEDULE_MSG: string;
   private BREAK_MSG: string;
@@ -14,7 +14,7 @@ export class Schedule {
   private YET_TO_MSG: string;
 
   constructor(
-    private calendar: Calendar,
+    private readonly calendar: Calendar,
     { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage } = {
       noScheduleMessage: 'No Schedule',
       breakMessage: 'Break',
