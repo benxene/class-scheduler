@@ -13,11 +13,6 @@ export class Schedule {
   private CLASSES_OVER_MSG: string;
   private YET_TO_MSG: string;
 
-  /**
-   *
-   * @param calendar : Array<{ day: Day, timeRange: Array<TimeRange>, classes: Array<string>;}>
-   * @param customMessages ?: { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage }
-   */
   constructor(
     private calendar: Calendar,
     { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage } = {
@@ -46,7 +41,6 @@ export class Schedule {
 
   /**
    * Set No schedule custom message
-   * @param message : String
    */
   public setNoScheduleMessage(message: string) {
     this.NO_SCHEDULE_MSG = message;
@@ -54,7 +48,6 @@ export class Schedule {
 
   /**
    * Set Break time custom message
-   * @param message : String
    */
   public setBreakMessage(message: string) {
     this.BREAK_MSG = message;
@@ -62,7 +55,6 @@ export class Schedule {
 
   /**
    * Set all classes over custom message
-   * @param message : String
    */
   public setClassesOverMessage(message: string) {
     this.CLASSES_OVER_MSG = message;
@@ -70,7 +62,6 @@ export class Schedule {
 
   /**
    * Set classes yet to begin custom message
-   * @param message : String
    */
   public setYetToStartMessage(message: string) {
     this.YET_TO_MSG = message;
@@ -78,15 +69,13 @@ export class Schedule {
 
   /**
    * Get time table
-   * @returns the time table as Array<Array<String>>
    */
-  public getClassTable() {
+  public getClassTable(): Array<Array<string>> {
     return this.calendar.map(value => value.classes);
   }
 
   /**
    * Get period number
-   * @param time ?: Date | now
    * @returns period number for the given `time`
    *
    * -4 : break
@@ -151,7 +140,6 @@ export class Schedule {
 
   /**
    * Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
-   * @param Date / day number
    * @returns An array of all the classes in the given day.
    */
   public getClasses(date?: Date | number): Array<string> {
@@ -166,7 +154,6 @@ export class Schedule {
 
   /**
    * Get the Classes schedule corresponding to given days.
-   * @param selectedDays
    * @returns An array of all the classes that matches the days.
    */
   public getClassByDay(...selectedDays: Array<string>) {
@@ -179,9 +166,6 @@ export class Schedule {
 
   /**
    * Get the Class corresponding to a given period and day.
-   * @param period: period number
-   * @param day: Date | Day Number
-   * @returns Class - String
    *
    * NOTE:
    * () -> currentPeriod
@@ -206,8 +190,6 @@ export class Schedule {
 
   /**
    * Get the current scheduled class
-   * @param options: {useMeaningfulMessage: boolean : false}
-   * @returns String
    */
   public getCurrentClass({ useMeaningfulMessage } = { useMeaningfulMessage: false }): string {
     let currentClass = this.getClass();
@@ -230,8 +212,6 @@ export class Schedule {
 
   /**
    * Get the next upcoming class.
-   * @param options: {allowNextDay} : Toggle next day look up - boolean
-   * @returns the next class - string
    */
   public getNextClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
@@ -260,8 +240,6 @@ export class Schedule {
 
   /**
    * Get the class coming after the next class.
-   * @param options: { allowNextDay } : Toggle next day look up - boolean
-   * @returns The class coming after the next class - string
    */
   public getLaterClass({ allowNextDay } = { allowNextDay: false }): string {
     const currentPeriodNumber = this.getPeriodNumber();
