@@ -30,8 +30,6 @@ export class Schedule {
   }
 
   /**
-   *
-   * @param date: Date
    * @returns number corresponding to the day: number
    */
   private getDayNumber(date: Date = new Date()): number {

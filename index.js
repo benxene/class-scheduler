@@ -2,11 +2,6 @@
 exports.__esModule = true;
 exports.Schedule = void 0;
 var Schedule = /** @class */ (function () {
-    /**
-     *
-     * @param calendar : Array<{ day: Day, timeRange: Array<TimeRange>, classes: Array<string>;}>
-     * @param customMessages ?: { noScheduleMessage, breakMessage, classesOverMessage, yetToBeginMessage }
-     */
     function Schedule(calendar, _a) {
         var _b = _a === void 0 ? {
             noScheduleMessage: 'No Schedule',
@@ -27,8 +22,6 @@ var Schedule = /** @class */ (function () {
         this.YET_TO_MSG = yetToBeginMessage;
     }
     /**
-     *
-     * @param date: Date
      * @returns number corresponding to the day: number
      */
     Schedule.prototype.getDayNumber = function (date) {
@@ -38,42 +31,36 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Set No schedule custom message
-     * @param message : String
      */
     Schedule.prototype.setNoScheduleMessage = function (message) {
         this.NO_SCHEDULE_MSG = message;
     };
     /**
      * Set Break time custom message
-     * @param message : String
      */
     Schedule.prototype.setBreakMessage = function (message) {
         this.BREAK_MSG = message;
     };
     /**
      * Set all classes over custom message
-     * @param message : String
      */
     Schedule.prototype.setClassesOverMessage = function (message) {
         this.CLASSES_OVER_MSG = message;
     };
     /**
      * Set classes yet to begin custom message
-     * @param message : String
      */
     Schedule.prototype.setYetToStartMessage = function (message) {
         this.YET_TO_MSG = message;
     };
     /**
      * Get time table
-     * @returns the time table as Array<Array<String>>
      */
     Schedule.prototype.getClassTable = function () {
         return this.calendar.map(function (value) { return value.classes; });
     };
     /**
      * Get period number
-     * @param time ?: Date | now
      * @returns period number for the given `time`
      *
      * -4 : break
@@ -127,7 +114,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get Classes of a given Date/ Day number. Day number 0 corresponds to Sunday.
-     * @param Date / day number
      * @returns An array of all the classes in the given day.
      */
     Schedule.prototype.getClasses = function (date) {
@@ -142,7 +128,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get the Classes schedule corresponding to given days.
-     * @param selectedDays
      * @returns An array of all the classes that matches the days.
      */
     Schedule.prototype.getClassByDay = function () {
@@ -159,9 +144,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get the Class corresponding to a given period and day.
-     * @param period: period number
-     * @param day: Date | Day Number
-     * @returns Class - String
      *
      * NOTE:
      * () -> currentPeriod
@@ -184,8 +166,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get the current scheduled class
-     * @param options: {useMeaningfulMessage: boolean : false}
-     * @returns String
      */
     Schedule.prototype.getCurrentClass = function (_a) {
         var _b = _a === void 0 ? { useMeaningfulMessage: false } : _a, useMeaningfulMessage = _b.useMeaningfulMessage;
@@ -206,8 +186,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get the next upcoming class.
-     * @param options: {allowNextDay} : Toggle next day look up - boolean
-     * @returns the next class - string
      */
     Schedule.prototype.getNextClass = function (_a) {
         var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
@@ -235,8 +213,6 @@ var Schedule = /** @class */ (function () {
     };
     /**
      * Get the class coming after the next class.
-     * @param options: { allowNextDay } : Toggle next day look up - boolean
-     * @returns The class coming after the next class - string
      */
     Schedule.prototype.getLaterClass = function (_a) {
         var _b = _a === void 0 ? { allowNextDay: false } : _a, allowNextDay = _b.allowNextDay;
