@@ -4,7 +4,6 @@
   "description": "A zero dependency schedule manager for javascript apps",
   "main": "index.js",
   "scripts": {
-    "run": "ts-node index",
     "compile": "tsc",
     "dev": "tsc -w",
     "format": "prettier --write \"**/*.{ts,md}\"",
