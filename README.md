@@ -34,25 +34,17 @@ yarn add class-scheduler
 
 ### Importing
 
-- For TypeScript
+- TypeScript / JavaScript ES6+
 
-  ```typescript
+  ```javascript
   import { Schedule } from 'class-scheduler';
   ```
 
-- For JavaScript
+- Common JS
 
-  - ES6+
-
-    ```javascript
-    import { Schedule } from 'class-scheduler';
-    ```
-
-  - Common JS
-
-    ```javascript
-    const { Schedule } = require('class-scheduler');
-    ```
+  ```javascript
+  const { Schedule } = require('class-scheduler');
+  ```
 
 ---
 
