@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.Schedule = void 0;
 var Schedule = /** @class */ (function () {
     function Schedule(calendar, _a) {
@@ -252,3 +252,4 @@ var Schedule = /** @class */ (function () {
     return Schedule;
 }());
 exports.Schedule = Schedule;
+//# sourceMappingURL=index.js.map
