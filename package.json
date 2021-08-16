@@ -1,10 +1,10 @@
 {
   "name": "class-scheduler",
-  "version": "1.1.3",
+  "version": "1.2.1",
   "description": "A zero dependency schedule manager for javascript apps",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "compile": "tsc",
+    "build": "tsc",
     "dev": "tsc -w",
     "format": "prettier --write \"**/*.{ts,md}\"",
     "format:check": "prettier -c \"**/*.{ts,md}\"",
@@ -30,8 +30,12 @@
     "babel-jest": "^27.0.5",
     "husky": "^7.0.1",
     "jest": "^27.0.5",
+    "lint-staged": "^11.1.2",
     "prettier": "^2.3.1",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,md}": "prettier --write"
   }
 }
